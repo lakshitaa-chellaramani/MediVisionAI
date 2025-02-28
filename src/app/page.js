@@ -27,9 +27,12 @@ import {
   PieChart, 
   MessageSquare
 } from 'lucide-react';
+import ChatBox from "@/components/ChatBox";
+
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('patients');
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [stats, setStats] = useState({
     scansAnalyzed: 0,
     conditionsDetected: 0,
@@ -52,7 +55,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-950 to-neutral-900 text-neutral-50">
       <Head>
-        <title>MediScan AI | Medical Imaging Assistant</title>
+        <title>MediVision AI | Medical Imaging Assistant</title>
         <meta name="description" content="AI-powered medical imaging for early detection & accurate diagnosis" />
       </Head>
 
@@ -63,7 +66,7 @@ export default function Home() {
             <div className="w-10 h-10 rounded-lg bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-800/30">
               <Brain className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold">MediScan<span className="text-rose-400">AI</span></span>
+            <span className="text-xl font-bold">MediVision<span className="text-rose-400">AI</span></span>
           </div>
           
           <nav className="hidden md:flex items-center gap-8">
@@ -468,7 +471,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-neutral-300 mb-6">
-                  "As a radiologist with 20 years of experience, I'm impressed with the accuracy of MediScan AI. It has become an invaluable second opinion that helps me catch details I might otherwise miss."
+                  "As a radiologist with 20 years of experience, I'm impressed with the accuracy of MediVision AI. It has become an invaluable second opinion that helps me catch details I might otherwise miss."
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-rose-900/50 flex items-center justify-center">
@@ -608,12 +611,12 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-lg bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-800/30">
                   <Brain className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xl font-bold">MediScan<span className="text-rose-400">AI</span></span>
+                <span className="text-xl font-bold">MediVision<span className="text-rose-400">AI</span></span>
               </div>
               
               <h3 className="text-2xl font-bold mb-6">Schedule a Consultation</h3>
               <p className="text-neutral-300 mb-8">
-                Interested in learning how MediScanAI can transform your healthcare practice? Request a personalized demo with our specialists.
+                Interested in learning how MediVisionAI can transform your healthcare practice? Request a personalized demo with our specialists.
               </p>
               
               <Card className="bg-neutral-900/50 border-neutral-800">
@@ -770,7 +773,7 @@ export default function Home() {
           
           <div className="border-t border-neutral-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-neutral-400 text-sm">
-              © {new Date().getFullYear()} MediScanAI. All rights reserved.
+              © {new Date().getFullYear()} MediVisionAI. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-neutral-400 hover:text-rose-400 transition">
@@ -804,10 +807,16 @@ export default function Home() {
 
         {/* Floating Chat Widget */}
         <div className="fixed bottom-6 right-6 z-50">
-          <button className="w-14 h-14 rounded-full bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 shadow-lg shadow-rose-900/40 flex items-center justify-center">
-            <MessageSquare className="w-6 h-6 text-white" />
-          </button>
-        </div>
+        <button
+          onClick={() => setIsChatOpen(true)}
+          className="w-14 h-14 rounded-full bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 shadow-lg shadow-rose-900/40 flex items-center justify-center"
+        >
+          <MessageSquare className="w-6 h-6 text-white" />
+        </button>
+      </div>
+
+      {/* ChatBox Component */}
+      {isChatOpen && <ChatBox onClose={() => setIsChatOpen(false)} />}
       </footer>
     </div>
   );
