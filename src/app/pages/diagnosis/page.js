@@ -69,11 +69,24 @@ export default function DiagnosisPage() {
       try {
         const formData = new FormData();
         formData.append("file", selectedReportFile);
+
+        const fileType = selectedReportFile.type;
+
   
-        const response = await fetch("http://127.0.0.1:5500/generate-report", {
-          method: "POST",
-          body: formData,
-        });
+        let response;
+        if (fileType.includes("pdf") || fileType.includes("text")) {
+          response = await fetch("http://127.0.0.1:5500/generate-report", {
+            method: "POST",
+            body: formData,
+          });
+        } else if (fileType.includes("image")) {
+          response = await fetch("http://127.0.0.1:5500/generate-image-report", {
+            method: "POST",
+            body: formData,
+          });
+        } else {
+          throw new Error("Invalid file type. Please upload a PDF or image file.");
+        }
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -82,7 +95,7 @@ export default function DiagnosisPage() {
         const result = await response.json(); // Parse JSON response
         setAiReport({
           type: "report",
-          result: result.summary, // Extract only the summary text
+          result: result.summary || result.response, // Extract only the summary text
         });
       } catch (error) {
         console.error("Error analyzing report:", error);
@@ -157,7 +170,7 @@ export default function DiagnosisPage() {
                     <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-green-500 p-6 rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-600">
                       <FileDigit className="h-8 w-8 text-green-500" />
                       <span className="mt-2 text-sm text-white">Upload Blood Tests, Urine Tests, etc.</span>
-                      <Input type="file" className="hidden" onChange={handleReportFileUpload} accept=".pdf,.doc,.docx,.txt" />
+                      <Input type="file" className="hidden" onChange={handleReportFileUpload} accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg" />
                     </label>
                     {selectedReportFile && (
                       <p className="text-sm text-gray-300">Uploaded: {selectedReportFile.name}</p>

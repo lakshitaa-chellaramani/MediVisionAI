@@ -389,7 +389,7 @@ def upload_file():
     abnormal_tests = extract_abnormal_tests(extracted_text)
 
     # Generate Gemini AI medical summary
-    summary_prompt = f"Summarize this medical report in simple terms:\n\n{extracted_text}"
+    summary_prompt = f"Summarize this medical report in simple terms and suggest possible dieases in points:\n\n{extracted_text}"
     medical_summary = model.generate_content(summary_prompt).text
 
     response_data = {
