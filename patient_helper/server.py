@@ -120,8 +120,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Allow requests from Next.js
 
 # Set up Google Generative AI API Key
-GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
-genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key = GOOGLE_API_KEY)
 
 # Initialize model with system instructions
 model = genai.GenerativeModel(
