@@ -12,6 +12,9 @@ export default function DiagnosisPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [aiReport, setAiReport] = useState(null);
   const [activeTab, setActiveTab] = useState("scans");
+  const [user, setUser] = useState(null);
+
+  
 
   const handleScanFileUpload = (event) => {
     const file = event.target.files[0];

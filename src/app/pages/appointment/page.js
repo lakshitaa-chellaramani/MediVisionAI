@@ -13,6 +13,8 @@ export default function DoctorAppointmentsPage() {
   const [isResponseOpen, setIsResponseOpen] = useState(false);
   const [doctorEmail, setDoctorEmail] = useState("");
   const [doctorResponse, setDoctorResponse] = useState("");
+  const [isPatientDetailsOpen, setIsPatientDetailsOpen] = useState(false);
+  const [patientDetails, setPatientDetails] = useState(null);
 
   useEffect(() => {
     async function fetchDoctorEmail() {
@@ -52,6 +54,22 @@ export default function DoctorAppointmentsPage() {
   const handleApprove = (appointment) => {
     setSelectedAppointment(appointment);
     setIsResponseOpen(true);
+  };
+
+  const handleViewPatientDetails = async (patientEmail) => {
+    try {
+      const response = await fetch(`/api/patient-details?email=${patientEmail}`);
+      const data = await response.json();
+      if (data) {
+        console.log(data.patient)
+        setPatientDetails(data.patient);
+        setIsPatientDetailsOpen(true);
+      } else {
+        alert("Failed to fetch patient details.");
+      }
+    } catch (error) {
+      console.error("Error fetching patient details:", error);
+    }
   };
 
   const handleSubmitResponse = async () => {
@@ -143,27 +161,28 @@ export default function DoctorAppointmentsPage() {
 
   return (
     <div className="bg-neutral-900 min-h-screen text-white">
+      <h1 className="text-2xl font-bold mb-8 text-green-400">Patient Appointment Requests</h1>
       <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-8 text-rose-400">Patient Appointment Requests</h1>
+        <h1 className="text-2xl font-bold mb-8 text-green-400">Patient Appointment Requests</h1>
 
         {loading ? (
-          <p className="text-center text-rose-400">Loading appointments...</p>
+          <p className="text-center text-green-400">Loading appointments...</p>
         ) : appointments.length === 0 ? (
           <p className="text-center text-gray-400">No appointments found.</p>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {appointments.map((appointment) => (
-              <Card key={appointment._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg">
+              <Card key={appointment._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg" onClick={() => handleViewPatientDetails(appointment.patientEmail)}>
                 <CardHeader className="p-4">
-                  <h3 className="text-lg font-semibold text-rose-400">
-                    <User className="w-4 h-4 inline-block mr-2 text-rose-300" />
+                  <h3 className="text-lg font-semibold text-green-400">
+                    <User className="w-4 h-4 inline-block mr-2 text-green-300" />
                     {appointment.patientEmail}
                   </h3>
                   <p className="text-gray-300">
-                    <Calendar className="w-4 h-4 inline-block text-rose-300" /> {appointment.date}
+                    <Calendar className="w-4 h-4 inline-block text-green-300" /> {appointment.date}
                   </p>
                   <p className="text-gray-300">
-                    <Clock className="w-4 h-4 inline-block text-rose-300" /> {appointment.time}
+                    <Clock className="w-4 h-4 inline-block text-green-300" /> {appointment.time}
                   </p>
                   <p className="text-gray-300">Reason: {appointment.reason}</p>
                   
@@ -200,6 +219,32 @@ export default function DoctorAppointmentsPage() {
             ))}
           </div>
         )}
+        {/* Patient Details Modal */}
+         {/* Patient Details Modal */}
+         <Dialog open={isPatientDetailsOpen} onOpenChange={setIsPatientDetailsOpen}>
+          <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
+            <DialogHeader>
+              <DialogTitle className="text-white text-lg">Patient Details</DialogTitle>
+            </DialogHeader>
+            {patientDetails ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><strong>Full Name:</strong> {patientDetails.fullName}</p>
+                <p><strong>Email:</strong> {patientDetails.email}</p>
+                <p><strong>Blood Group:</strong> {patientDetails.bloodGroup}</p>
+                <p><strong>Height:</strong> {patientDetails.height}</p>
+                <p><strong>Weight:</strong> {patientDetails.weight}</p>
+                <p><strong>Allergies:</strong> {patientDetails.allergies}</p>
+                <p><strong>Avg Sleep:</strong> {patientDetails.avgSleep}</p>
+                <p><strong>Diet:</strong> {patientDetails.diet}</p>
+                <p><strong>Water Intake:</strong> {patientDetails.waterIntake}</p>
+                <p><strong>Exercise:</strong> {patientDetails.exercise}</p>
+                <p><strong>Health Goals:</strong> {patientDetails.healthGoals}</p>
+              </div>
+            ) : (
+              <p className="text-gray-400">Loading patient details...</p>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Response Modal */}
         <Dialog open={isResponseOpen} onOpenChange={setIsResponseOpen}>

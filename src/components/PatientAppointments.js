@@ -47,10 +47,10 @@ export default function PatientAppointmentsPage() {
   return (
     <div className="bg-neutral-900 min-h-screen text-white">
       <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-8 text-rose-400">My Appointments</h1>
+        <h1 className="text-2xl font-bold mb-8 text-green-400">My Appointments</h1>
 
         {loading ? (
-          <p className="text-center text-rose-400">Loading appointments...</p>
+          <p className="text-center text-green-400">Loading appointments...</p>
         ) : appointments.length === 0 ? (
           <p className="text-center text-gray-400">No appointments found.</p>
         ) : (
@@ -58,23 +58,23 @@ export default function PatientAppointmentsPage() {
             {appointments.map((appointment) => (
               <Card key={appointment._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg">
                 <CardHeader className="p-4">
-                  <h3 className="text-lg font-semibold text-rose-400">
-                    <User className="w-4 h-4 inline-block mr-2 text-rose-300" />
+                  <h3 className="text-lg font-semibold text-green-400">
+                    <User className="w-4 h-4 inline-block mr-2 text-green-300" />
                     Dr. {appointment.doctorDetails?.fullName || "Unknown Doctor"}
                   </h3>
                   <p className="text-gray-300">
-                    <Stethoscope className="w-4 h-4 inline-block text-rose-300" />{" "}
+                    <Stethoscope className="w-4 h-4 inline-block text-green-300" />{" "}
                     {appointment.doctorDetails?.specialization || "Specialty not available"}
                   </p>
                   <p className="text-gray-300">
-                    <MapPin className="w-4 h-4 inline-block text-rose-300" />{" "}
+                    <MapPin className="w-4 h-4 inline-block text-green-300" />{" "}
                     {appointment.doctorDetails?.clinicLocation || "Location not available"}
                   </p>
                   <p className="text-gray-300">
-                    <Calendar className="w-4 h-4 inline-block text-rose-300" /> {appointment.date}
+                    <Calendar className="w-4 h-4 inline-block text-green-300" /> {appointment.date}
                   </p>
                   <p className="text-gray-300">
-                    <Clock className="w-4 h-4 inline-block text-rose-300" /> {appointment.time}
+                    <Clock className="w-4 h-4 inline-block text-green-300" /> {appointment.time}
                   </p>
                   <p className="text-gray-300">Reason: {appointment.reason}</p>
                 </CardHeader>

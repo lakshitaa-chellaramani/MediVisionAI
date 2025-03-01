@@ -153,21 +153,21 @@ export default function FindDoctorsPage() {
   };
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white pt-20">
+    <div className="bg-neutral-900 min-h-screen text-white">
       <div className="max-w-6xl mx-auto p-6">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-rose-400">Find Specialists</h1>
+          <h1 className="text-2xl font-bold text-green-400">Find Specialists</h1>
           
           {/* Filter Button */}
           <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-rose-500 hover:bg-rose-600 flex items-center gap-2">
+              <Button className="bg-green-500 hover:bg-green-600 flex items-center gap-2">
                 <Filter className="w-4 h-4" /> Filters
               </Button>
             </DialogTrigger>
             <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-rose-400">Filter Doctors</h3>
+                <h3 className="text-xl font-semibold text-green-400">Filter Doctors</h3>
                 
                 {/* Location Filter */}
                 <div>
@@ -228,7 +228,7 @@ export default function FindDoctorsPage() {
                   </Button>
                   <Button 
                     onClick={() => setIsFilterOpen(false)} 
-                    className="bg-rose-500 hover:bg-rose-600"
+                    className="bg-green-500 hover:bg-green-600"
                   >
                     Apply Filters
                   </Button>
@@ -242,7 +242,7 @@ export default function FindDoctorsPage() {
         {(filters.location || filters.specialization || filters.onlyAvailable) && (
           <div className="flex flex-wrap gap-2 mb-4">
             {filters.location && (
-              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+              <div className="bg-neutral-800 text-green-300 text-sm px-3 py-1 rounded-full flex items-center">
                 <MapPin className="w-3 h-3 mr-1" /> {filters.location}
                 <button 
                   className="ml-2 text-neutral-400 hover:text-neutral-200"
@@ -253,7 +253,7 @@ export default function FindDoctorsPage() {
               </div>
             )}
             {filters.specialization && (
-              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+              <div className="bg-neutral-800 text-green-300 text-sm px-3 py-1 rounded-full flex items-center">
                 <Stethoscope className="w-3 h-3 mr-1" /> {filters.specialization}
                 <button 
                   className="ml-2 text-neutral-400 hover:text-neutral-200"
@@ -264,7 +264,7 @@ export default function FindDoctorsPage() {
               </div>
             )}
             {filters.onlyAvailable && (
-              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+              <div className="bg-neutral-800 text-green-300 text-sm px-3 py-1 rounded-full flex items-center">
                 Available Only
                 <button 
                   className="ml-2 text-neutral-400 hover:text-neutral-200"
@@ -284,11 +284,11 @@ export default function FindDoctorsPage() {
 
         {/* Doctors Grid */}
         {loading ? (
-          <p className="text-center text-rose-400">Loading doctors...</p>
+          <p className="text-center text-green-400">Loading doctors...</p>
         ) : filteredDoctors.length === 0 ? (
           <div className="text-center py-12 bg-neutral-800 rounded-xl">
             <p className="text-neutral-300 mb-2">No doctors found matching your filters</p>
-            <Button onClick={resetFilters} className="bg-rose-500 hover:bg-rose-600">
+            <Button onClick={resetFilters} className="bg-green-500 hover:bg-green-600">
               Reset Filters
             </Button>
           </div>
@@ -297,22 +297,22 @@ export default function FindDoctorsPage() {
             {filteredDoctors.map((doctor) => (
               <Card key={doctor._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg">
                 <CardHeader className="p-4">
-                  <h3 className="text-xl font-semibold text-rose-400">{doctor.name || "No Name Provided"}</h3>
+                  <h3 className="text-xl font-semibold text-green-400">{doctor.name || "No Name Provided"}</h3>
                   <p className="text-gray-300">
-                    <Stethoscope className="w-4 h-4 inline-block text-rose-300" /> {doctor.specialization}
+                    <Stethoscope className="w-4 h-4 inline-block text-green-300" /> {doctor.specialization}
                   </p>
                   <p className="text-gray-300">
-                    <MapPin className="w-4 h-4 inline-block text-rose-300" /> {doctor.clinicLocation}
+                    <MapPin className="w-4 h-4 inline-block text-green-300" /> {doctor.clinicLocation}
                   </p>
                   <p className="text-gray-300">
-                    <DollarSign className="w-4 h-4 inline-block text-rose-300" /> ${doctor.consultationFee}
+                    <DollarSign className="w-4 h-4 inline-block text-green-300" /> ${doctor.consultationFee}
                   </p>
                 </CardHeader>
                 <CardFooter className="p-4">
                   <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
                     <DialogTrigger asChild>
                       <Button
-                        className="w-full bg-rose-500 hover:bg-rose-600"
+                        className="w-full bg-green-500 hover:bg-green-600"
                         disabled={!doctor.availability}
                         onClick={() => setSelectedDoctor(doctor)}
                       >
@@ -356,7 +356,7 @@ export default function FindDoctorsPage() {
                         {/* Submit Button */}
                         <Button
                           onClick={handleBookAppointment}
-                          className="bg-rose-500 hover:bg-rose-600 text-white w-full"
+                          className="bg-green-500 hover:bg-green-600 text-white w-full"
                         >
                           Confirm Appointment
                         </Button>

@@ -113,7 +113,7 @@ export default function PatientDetailsPage() {
 
           {/* Edit Modal */}
           <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-            <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200">
+            <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 max-w-4xl mx-auto p-6 overflow-y-auto h-[90vh]">
               <DialogHeader>
                 <DialogTitle className="text-white">Edit Profile</DialogTitle>
               </DialogHeader>

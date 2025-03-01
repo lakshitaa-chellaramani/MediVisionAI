@@ -1,6 +1,6 @@
 // src/pages/index.jsx
 "use client"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -31,6 +31,7 @@ import ChatBox from "@/components/ChatBox";
 
 
 export default function Home() {
+  const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('patients');
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [stats, setStats] = useState({
@@ -38,6 +39,24 @@ export default function Home() {
     conditionsDetected: 0,
     doctorsAssisted: 0
   });
+
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch("/api/auth/user");
+        const data = await response.json();
+
+        if (data.user) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } 
+    }
+
+    fetchUser();
+  }, []);
 
   // Animate stats when page loads
   useState(() => {
@@ -144,14 +163,14 @@ export default function Home() {
             Harness the power of artificial intelligence to revolutionize medical imaging. Our cutting-edge platform helps healthcare professionals detect conditions earlier and with greater precision.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          {user&&<div className="flex flex-wrap gap-4">
             <Button size="lg" className="bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 shadow-lg shadow-green-900/50 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
               <Upload className="mr-2 h-5 w-5" /> Upload Scan
             </Button>
             <Button size="lg" variant="outline" className="border-2 border-green-500/50 text-green-400 hover:bg-green-900/50 font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
               <Search className="mr-2 h-5 w-5" /> Analyze Reports
             </Button>
-          </div>
+          </div>}
           
           <div className="mt-8 flex items-center gap-4 text-neutral-400">
             <div className="flex -space-x-2">
@@ -316,7 +335,7 @@ export default function Home() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>
+                    {user&&<Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>}
                   </CardFooter>
                 </Card>
 
@@ -336,7 +355,7 @@ export default function Home() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>
+                    {user&&<Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>}
                   </CardFooter>
                 </Card>
 
@@ -356,7 +375,7 @@ export default function Home() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>
+                    {user&&<Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>}
                   </CardFooter>
                 </Card>
               </div>
@@ -380,7 +399,7 @@ export default function Home() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>
+                    {user&&<Button variant="link" className="text-green-400 p-0">Learn more &rarr;</Button>}
                   </CardFooter>
                 </Card>
 
@@ -486,9 +505,9 @@ export default function Home() {
                   </ul>
                 </CardContent>
                 <CardFooter className="border-t border-neutral-800 pt-6">
-                  <Button className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 shadow-md shadow-green-900/20">
+                  {user&&<Button className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 shadow-md shadow-green-900/20">
                     Explain My Scan
-                  </Button>
+                  </Button>}
                 </CardFooter>
               </Card>
             </div>
@@ -509,10 +528,10 @@ export default function Home() {
                       className="object-contain"
                     />
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-neutral-900 to-transparent p-6">
-                      <Button className="mt-auto mb-6 bg-green-600 hover:bg-green-500 gap-2">
+                      {user&&<Button className="mt-auto mb-6 bg-green-600 hover:bg-green-500 gap-2">
                         <Upload className="w-4 h-4" /> 
                         Try the AI Demo
-                      </Button>
+                      </Button>}
                     </div>
                   </div>
                 </div>
@@ -738,9 +757,9 @@ export default function Home() {
                       ></textarea>
                     </div>
                     
-                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 shadow-md shadow-green-900/20">
+                    {user&&<Button className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 shadow-md shadow-green-900/20">
                       Request Consultation
-                    </Button>
+                    </Button>}
                   </form>
                 </CardContent>
               </Card>
@@ -758,9 +777,9 @@ export default function Home() {
                       <p className="text-neutral-400 text-sm mb-4">
                         Stay updated with the latest in medical imaging AI research and real-world applications.
                       </p>
-                      <Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
+                      {user&&<Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
                         View Articles
-                      </Button>
+                      </Button>}
                     </CardContent>
                   </Card>
                   
@@ -772,9 +791,9 @@ export default function Home() {
                       <p className="text-neutral-400 text-sm mb-4">
                         Connect with other healthcare professionals using AI to enhance patient care.
                       </p>
-                      <Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
+                      {user&&<Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
                         Join Discussion
-                      </Button>
+                      </Button>}
                     </CardContent>
                   </Card>
                   
@@ -786,9 +805,9 @@ export default function Home() {
                       <p className="text-neutral-400 text-sm mb-4">
                         Attend virtual events and learn from experts in radiology and AI.
                       </p>
-                      <Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
+                      {user&&<Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
                         View Schedule
-                      </Button>
+                      </Button>}
                     </CardContent>
                   </Card>
                   
@@ -800,9 +819,9 @@ export default function Home() {
                       <p className="text-neutral-400 text-sm mb-4">
                         Explore real-world examples of how our AI has improved diagnostic outcomes.
                       </p>
-                      <Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
+                      {user&&<Button variant="outline" className="w-full border-green-500 text-green-400 hover:bg-green-950">
                         Read Case Studies
-                      </Button>
+                      </Button>}
                     </CardContent>
                   </Card>
                 </div>
