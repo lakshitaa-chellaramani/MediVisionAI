@@ -25,8 +25,8 @@ export default function AppointmentBooking() {
   return (
     <div className="min-h-screen p-8 bg-neutral-900 text-white flex flex-col items-center">
       <Card className="w-full max-w-lg p-6 shadow-lg border rounded-xl bg-neutral-800">
-        <CardHeader className="text-lg font-semibold text-rose-500 flex gap-2 items-center">
-          <Calendar className="w-5 h-5 text-rose-500" /> Book an Appointment
+        <CardHeader className="text-lg font-semibold text-green-500 flex gap-2 items-center">
+          <Calendar className="w-5 h-5 text-green-500" /> Book an Appointment
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <Select onValueChange={(value) => setSelectedDoctor(value)}>
@@ -62,7 +62,7 @@ export default function AppointmentBooking() {
             </TabsList>
           </Tabs>
 
-          <Button className="bg-rose-500 hover:bg-rose-400 text-white w-full mt-2">
+          <Button className="bg-green-500 hover:bg-green-400 text-white w-full mt-2">
             Confirm Appointment
           </Button>
         </CardContent>
@@ -70,7 +70,7 @@ export default function AppointmentBooking() {
 
       {/* Appointment History Tab */}
       <div className="mt-8 w-full max-w-lg">
-        <h2 className="text-lg font-semibold text-rose-500">Past Appointments</h2>
+        <h2 className="text-lg font-semibold text-green-500">Past Appointments</h2>
         <div className="mt-4 space-y-2">
           <div className="p-3 bg-neutral-800 rounded-lg flex justify-between">
             <span>Dr. Emily Carter - Video Consultation</span>

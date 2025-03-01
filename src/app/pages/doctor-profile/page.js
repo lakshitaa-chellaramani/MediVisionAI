@@ -76,7 +76,7 @@ export default function DoctorDetailsPage() {
     <div className="min-h-screen bg-neutral-900 text-neutral-200 flex flex-col items-center pt-24 px-10">
       {loading ? (
         <div className="flex justify-center items-center">
-          <Loader2 className="w-10 h-10 text-rose-500 animate-spin" />
+          <Loader2 className="w-10 h-10 text-green-500 animate-spin" />
         </div>
       ) : doctorDetails ? (
         <div className="w-full max-w-4xl bg-neutral-800 p-6 rounded-lg shadow-lg border border-neutral-700">
@@ -93,7 +93,7 @@ export default function DoctorDetailsPage() {
           </div>
 
           {/* Medical & Professional Details */}
-          <h3 className="text-xl font-medium text-rose-300 mb-2">Professional Information</h3>
+          <h3 className="text-xl font-medium text-green-300 mb-2">Professional Information</h3>
           <div className="grid grid-cols-2 gap-6">
             {["consultationFee", "availability", "degrees", "licenceNumber", "languagesSpoken", "treatmentExpertise", "consultationMode"].map((key) => (
               <div key={key}>
@@ -105,7 +105,7 @@ export default function DoctorDetailsPage() {
 
           {/* Edit Button */}
           <div className="mt-8 flex justify-center">
-            <Button onClick={handleEditClick} className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg">
+            <Button onClick={handleEditClick} className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg">
               Edit Profile
             </Button>
           </div>
@@ -136,7 +136,7 @@ export default function DoctorDetailsPage() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button onClick={handleSaveChanges} className="bg-rose-500 hover:bg-rose-600 text-white">
+                <Button onClick={handleSaveChanges} className="bg-green-500 hover:bg-green-600 text-white">
                   Save Changes
                 </Button>
               </div>

@@ -22,7 +22,7 @@ export default function MedicalReports() {
     <div className="bg-neutral-900 min-h-screen text-white"> 
     <div className="max-w-4xl mx-auto py-10 ">
       <Card className="bg-neutral-900 text-white p-6 shadow-lg">
-        <CardHeader className="text-xl font-semibold text-rose-500">Medical Reports 📑</CardHeader>
+        <CardHeader className="text-xl font-semibold text-green-500">Medical Reports 📑</CardHeader>
         <CardContent>
           <div className="flex justify-between mb-4">
             <Select onValueChange={(value) => setFilter(value)}>
@@ -36,7 +36,7 @@ export default function MedicalReports() {
                 <SelectItem value="CT Scan">CT Scan</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" className="bg-rose-500 text-white"><Filter className="h-4 w-4 mr-2" />Sort by Date</Button>
+            <Button variant="outline" className="bg-green-500 text-white"><Filter className="h-4 w-4 mr-2" />Sort by Date</Button>
           </div>
           <Tabs defaultValue="ai">
             <TabsList className="bg-neutral-800 text-white">
@@ -62,7 +62,7 @@ export default function MedicalReports() {
                         <TableCell>{report.date}</TableCell>
                         <TableCell>{report.status}</TableCell>
                         <TableCell>
-                          <Button size="sm" className="bg-rose-500 text-white"><Download className="h-4 w-4" />Download</Button>
+                          <Button size="sm" className="bg-green-500 text-white"><Download className="h-4 w-4" />Download</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -88,7 +88,7 @@ export default function MedicalReports() {
                         <TableCell>{report.date}</TableCell>
                         <TableCell>{report.status}</TableCell>
                         <TableCell>
-                          <Button size="sm" className="bg-rose-500 text-white"><Download className="h-4 w-4" />Download</Button>
+                          <Button size="sm" className="bg-green-500 text-white"><Download className="h-4 w-4" />Download</Button>
                         </TableCell>
                       </TableRow>
                     ))}
