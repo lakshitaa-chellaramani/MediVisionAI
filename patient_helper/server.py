@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import google.generativeai as genai
 import re
 from flask_cors import CORS
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
