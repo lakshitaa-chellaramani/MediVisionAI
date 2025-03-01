@@ -30,33 +30,38 @@ export default function DiagnosisPage() {
       setIsLoading(true);
       try {
         const formData = new FormData();
-        formData.append('file', selectedScanFile);
-        
-        const response = await fetch('http://127.0.0.1:5500/generate-scan', {
-          method: 'POST',
+        formData.append("image", selectedScanFile);
+  
+        const response = await fetch("http://127.0.0.1:5500/generate-scan-report", {
+          method: "POST",
           body: formData,
         });
-        
+  
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
         }
-        
-        const result = await response.text();
+  
+        const result = await response.json();
+  
         setAiReport({
-          type: 'scan',
-          result: result,
+          type: "scan",
+          result: result.response, // ✅ Extracted summary
+          imageUrl: URL.createObjectURL(selectedScanFile), // ✅ Create a URL for the uploaded image
         });
+  
       } catch (error) {
-        console.error('Error analyzing scan:', error);
+        console.error("Error analyzing scan:", error);
         setAiReport({
-          type: 'error',
-          result: 'An error occurred while analyzing the scan. Please try again.',
+          type: "error",
+          result: "An error occurred while analyzing the scan. Please try again.",
         });
       } finally {
         setIsLoading(false);
       }
     }
   };
+  
+  
 
   const handleAnalyzeReport = async () => {
     if (selectedReportFile) {
@@ -65,7 +70,7 @@ export default function DiagnosisPage() {
         const formData = new FormData();
         formData.append("file", selectedReportFile);
   
-        const response = await fetch("http://127.0.0.1:5500/generate-report", {
+        const response = await fetch("http://127.0.0.1:5500/generate-scan-report", {
           method: "POST",
           body: formData,
         });
@@ -169,7 +174,16 @@ export default function DiagnosisPage() {
               )}
             </div>
           </Tabs>
-
+          {aiReport?.imageUrl && (
+  <div className="mt-4">
+    <h3 className="text-lg font-semibold">Uploaded Image:</h3>
+    <img
+      src={aiReport.imageUrl}
+      alt="Uploaded Scan"
+      className="w-64 h-auto mt-2 border rounded-md shadow-md"
+    />
+  </div>
+)}
           {aiReport && (
             <div className="p-4 mt-4 bg-neutral-700 rounded-lg border border-green-500 text-white">
               <p className="text-lg font-semibold text-green-500">
