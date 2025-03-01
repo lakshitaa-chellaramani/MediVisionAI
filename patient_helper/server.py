@@ -1,3 +1,4 @@
+import fitz
 from flask import Flask, request, jsonify
 import google.generativeai as genai
 import io
@@ -7,7 +8,9 @@ from PIL import Image
 from flask_cors import CORS
 from dotenv import load_dotenv
 import re
-
+import pytesseract
+from fuzzywuzzy import fuzz
+import cv2
 load_dotenv()
 GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
 print(GOOGLE_API_KEY) 
@@ -272,6 +275,95 @@ def generate_scan_report():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+value_keywords = ["Value", "Result", "Reading", "Test Value"]
+reference_keywords = ["Reference Range", "Normal Range", "Range", "Ref Range"]
+
+
+# Function to find closest match
+def find_closest_match(word, choices):
+    best_match = max(choices, key=lambda x: fuzz.partial_ratio(word.lower(), x.lower()))
+    return best_match if fuzz.partial_ratio(word.lower(), best_match.lower()) > 70 else None
+
+
+# Function to extract text from image
+def extract_text_from_image(image_path):
+    img = cv2.imread(image_path)
+    if img is None:
+        return None, "Error: Unable to load image."
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    ocr_data = pytesseract.image_to_data(gray, output_type=pytesseract.Output.DICT)
+    extracted_text = "\n".join(ocr_data["text"]).strip()
+    
+    return extracted_text if extracted_text else None, "No readable text found in the image."
+
+def extract_abnormal_tests(text):
+    pattern = r"([\w\s]+)\s+([\d\.]+)\s*([a-zA-Z/%µ]*)\s+([\d\.]+)-([\d\.]+)"
+    matches = re.findall(pattern, text)
+
+    abnormal_results = []
+    for test, value, unit, ref_low, ref_high in matches:
+        try:
+            value = float(value)
+            ref_low = float(ref_low)
+            ref_high = float(ref_high)
+
+            if value < ref_low:
+                abnormal_results.append(f"{test.strip()} ({value} {unit}) is **LOW** (Normal: {ref_low}-{ref_high} {unit})")
+            elif value > ref_high:
+                abnormal_results.append(f"{test.strip()} ({value} {unit}) is **HIGH** (Normal: {ref_low}-{ref_high} {unit})")
+        except ValueError:
+            continue
+
+    return abnormal_results
+
+
+# Flask API route
+@app.route("/generate-image-report", methods=["POST"])
+def upload_file():
+    if "file" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    # Save uploaded file
+    file_path = os.path.join("uploads", file.filename)
+    os.makedirs("uploads", exist_ok=True)
+    file.save(file_path)
+
+    # Extract text from image
+    extracted_text, error = extract_text_from_image(file_path)
+    if extracted_text is None:
+        return jsonify({"error": error}), 400
+
+    # Extract abnormal tests
+    abnormal_tests = extract_abnormal_tests(extracted_text)
+
+    # Generate Gemini AI medical summary
+    summary_prompt = f"Summarize this medical report in simple terms:\n\n{extracted_text}"
+    medical_summary = model.generate_content(summary_prompt).text
+
+    response_data = {
+        "summary": medical_summary,
+        "abnormal_tests": abnormal_tests,
+    }
+
+    # If there are abnormal results, get possible conditions
+    if abnormal_tests:
+        conditions_prompt = "Based on these abnormal blood test results, suggest possible medical conditions:\n" + "\n".join(abnormal_tests)
+        conditions_response = model.generate_content(conditions_prompt).text
+        response_data["possible_conditions"] = conditions_response
+
+    return jsonify(response_data)
+
+
+
+
 
 # Run the Flask app
 if __name__ == "__main__":
