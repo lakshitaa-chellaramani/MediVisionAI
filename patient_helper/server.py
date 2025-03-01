@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import google.generativeai as genai
 import re
 from flask_cors import CORS
+import os
+import fitz 
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
@@ -148,7 +150,7 @@ chat_session = model.start_chat(history=[
     ]}
 ])
 
-@app.route("/generate", methods=["POST"])
+@app.route("/generate-diagnosis", methods=["POST"])
 def generate_text():
     try:
         data = request.json
@@ -174,6 +176,51 @@ def generate_text():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure upload directory exists
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+
+def extract_text_from_pdf(pdf_path):
+    """Extracts text from a PDF file."""
+    doc = fitz.open(pdf_path)
+    text = "\n".join([page.get_text("text") for page in doc])
+    return text.strip()
+
+def summarize_medical_report(pdf_path):
+    """Generates a summary of the medical report using Gemini API."""
+    text = extract_text_from_pdf(pdf_path)
+    
+    if not text:
+        return "No readable text found in the PDF."
+
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
+    response = model.generate_content(f"Summarize this medical report in simple terms:\n\n{text}")
+
+    return response.text if response else "Failed to generate a response."
+
+@app.route("/generate-report", methods=["POST"])
+def upload_pdf():
+    """Handles PDF upload and returns a summary."""
+    if "file" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    if file:
+        file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+        file.save(file_path)
+
+        # Process the file
+        summary = summarize_medical_report(file_path)
+
+        return jsonify({"summary": summary})
 
 # Run the Flask app
 if __name__ == "__main__":

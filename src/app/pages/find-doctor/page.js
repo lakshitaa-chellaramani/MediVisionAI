@@ -1,37 +1,156 @@
-'use client';
-
-import { useState } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectItem, SelectContent, SelectTrigger } from '@/components/ui/select';
-import { Pagination, PaginationItem } from '@/components/ui/pagination';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Calendar, Clock, Filter, UserCheck, MapPin, Stethoscope, CheckCircle } from 'lucide-react';
-
-const doctors = [
-  { id: 1, name: 'Dr. Aisha Kapoor', specialty: 'Cardiologist', location: 'Mumbai', available: true, image: '/assets/doctor1.png' },
-  { id: 2, name: 'Dr. Rajesh Malhotra', specialty: 'Neurologist', location: 'Delhi', available: false, image: '/assets/doctor2.png' },
-  { id: 3, name: 'Dr. Ananya Sharma', specialty: 'Orthopedic', location: 'Bangalore', available: true, image: '/assets/doctor3.png' },
-  { id: 4, name: 'Dr. Vikram Sinha', specialty: 'Radiologist', location: 'Chennai', available: true, image: '/assets/doctor4.png' },
-];
+"use client";
+import { useEffect, useState } from "react";
+import { Card, CardHeader, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Stethoscope, MapPin, DollarSign, Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function FindDoctorsPage() {
-  const [filters, setFilters] = useState({ specialty: 'all', location: 'all', available: 'all' });
+  const [doctors, setDoctors] = useState([]);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [appointmentDetails, setAppointmentDetails] = useState({ description: '', appointmentType: '' });
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [patientEmail, setPatientEmail] = useState("");
+  const [appointmentData, setAppointmentData] = useState({
+    time: "",
+    date: "",
+    reason: "",
+  });
+  
+  // Filter states
+  const [locations, setLocations] = useState([]);
+  const [specializations, setSpecializations] = useState([]);
+  const [filters, setFilters] = useState({
+    location: "",
+    specialization: "",
+    onlyAvailable: false,
+  });
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const handleFilterChange = (field, value) => {
-    setFilters({ ...filters, [field]: value });
+  useEffect(() => {
+    async function fetchDoctors() {
+      try {
+        const response = await fetch("/api/getalldocs");
+        const data = await response.json();
+        if (data.success) {
+          setDoctors(data.doctors);
+          setFilteredDoctors(data.doctors);
+          
+          // Extract unique locations and specializations for filter options
+          const uniqueLocations = [...new Set(data.doctors.map(doc => doc.clinicLocation))];
+          const uniqueSpecializations = [...new Set(data.doctors.map(doc => doc.specialization))];
+          
+          setLocations(uniqueLocations);
+          setSpecializations(uniqueSpecializations);
+        }
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    async function fetchPatientEmail() {
+      try {
+        const response = await fetch("/api/auth/user");
+        const data = await response.json();
+        if (data.user) {
+          setPatientEmail(data.user.email);
+        }
+      } catch (error) {
+        console.error("Error fetching patient email:", error);
+      }
+    }
+
+    fetchDoctors();
+    fetchPatientEmail();
+  }, []);
+  
+  // Apply filters whenever filters state changes
+  useEffect(() => {
+    applyFilters();
+  }, [filters, doctors]);
+  
+  const applyFilters = () => {
+    let result = [...doctors];
+    
+    // Filter by location
+    if (filters.location) {
+      result = result.filter(doc => doc.clinicLocation === filters.location);
+    }
+    
+    // Filter by specialization
+    if (filters.specialization) {
+      result = result.filter(doc => doc.specialization === filters.specialization);
+    }
+    
+    // Filter by availability
+    if (filters.onlyAvailable) {
+      result = result.filter(doc => doc.availability);
+    }
+    
+    setFilteredDoctors(result);
+  };
+  
+  const handleFilterChange = (key, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+  
+  const resetFilters = () => {
+    setFilters({
+      location: "",
+      specialization: "",
+      onlyAvailable: false
+    });
   };
 
-  const filteredDoctors = doctors.filter((doctor) => {
-    return (
-      (filters.specialty === 'all' || doctor.specialty === filters.specialty) &&
-      (filters.location === 'all' || doctor.location === filters.location) &&
-      (filters.available === 'all' || doctor.available === (filters.available === 'true'))
-    );
-  });
+  const handleBookAppointment = async () => {
+    if (!appointmentData.date || !appointmentData.time || !appointmentData.reason || !selectedDoctor) {
+      alert("Please fill all fields before booking.");
+      return;
+    }
+
+    const newAppointment = {
+      docEmail: selectedDoctor.email,
+      patientEmail: patientEmail,
+      time: appointmentData.time,
+      date: appointmentData.date,
+      reason: appointmentData.reason,
+      approved: false,
+      completed: false,
+      doctorResponse: "",
+    };
+
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newAppointment),
+      });
+
+      if (response.ok) {
+        alert("Appointment booked successfully!");
+        setIsBookingOpen(false);
+        setAppointmentData({ time: "", date: "", reason: "" });
+      } else {
+        alert("Failed to book appointment. Try again.");
+      }
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+    }
+  };
+
+  const getTodayDate = () => {
+    return new Date().toISOString().split("T")[0]; // Gets today's date in YYYY-MM-DD format
+  };
 
   return (
     <div className="bg-neutral-900 min-h-screen text-white pt-16">
