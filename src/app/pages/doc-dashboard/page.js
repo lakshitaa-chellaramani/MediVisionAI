@@ -73,14 +73,14 @@ export default function AppointmentsPage() {
   return (
     <div className="min-h-screen bg-[#121212] text-zinc-100 p-6 pt-20">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-rose-400 to-rose-600 bg-clip-text text-transparent">Appointments</h1>
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">Appointments</h1>
         <p className="text-zinc-400 mt-1">Manage and schedule patient visits.</p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <Card className="bg-zinc-900 border-zinc-800 col-span-1">
           <CardHeader>
-            <CardTitle className="text-rose-400">Your Availability</CardTitle>
+            <CardTitle className="text-green-400">Your Availability</CardTitle>
             <CardDescription className="text-zinc-400">Set your working hours and availability status</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -94,9 +94,9 @@ export default function AppointmentsPage() {
                   id="availability" 
                   checked={isAvailable} 
                   onCheckedChange={setIsAvailable}
-                  className="data-[state=checked]:bg-rose-500"
+                  className="data-[state=checked]:bg-green-500"
                 />
-                <span className={isAvailable ? "text-rose-400" : "text-zinc-500"}>
+                <span className={isAvailable ? "text-green-400" : "text-zinc-500"}>
                   {isAvailable ? "Available" : "Busy"}
                 </span>
               </div>
@@ -125,7 +125,7 @@ export default function AppointmentsPage() {
             />
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white border-0">
+            <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0">
               Update Availability
             </Button>
           </CardFooter>
@@ -135,15 +135,15 @@ export default function AppointmentsPage() {
           <Tabs defaultValue="pending" className="w-full">
             <CardHeader className="pb-0">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-rose-400">Appointment Requests</CardTitle>
+                <CardTitle className="text-green-400">Appointment Requests</CardTitle>
                 <TabsList className="bg-zinc-800">
-                  <TabsTrigger value="pending" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="pending" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
                     Pending
                   </TabsTrigger>
-                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
                     Confirmed
                   </TabsTrigger>
-                  <TabsTrigger value="completed" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="completed" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
                     Completed
                   </TabsTrigger>
                 </TabsList>
@@ -186,7 +186,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleApprove(appointment.id)}
-                              className="border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white"
+                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
                             >
                               <CheckCircle className="mr-1 h-4 w-4" />
                               Approve
@@ -254,7 +254,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleRequestTests(appointment)}
-                              className="border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white"
+                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
                             >
                               <FileSearch className="mr-1 h-4 w-4" />
                               Request Tests
@@ -308,7 +308,7 @@ export default function AppointmentsPage() {
                             variant="outline" 
                             size="sm" 
                             onClick={() => handleAddNotes(appointment)}
-                            className="border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white"
+                            className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
                           >
                             <FileText className="mr-1 h-4 w-4" />
                             {appointment.notes ? "View Notes" : "Add Notes"}
@@ -328,18 +328,18 @@ export default function AppointmentsPage() {
       {/* <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-800 shadow-lg">
         <div className="flex items-center space-x-4">
           <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <Calendar className="mr-2 h-4 w-4 text-rose-400" />
+            <Calendar className="mr-2 h-4 w-4 text-green-400" />
             Set Availability
           </Button>
           <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <Clock className="mr-2 h-4 w-4 text-rose-400" />
+            <Clock className="mr-2 h-4 w-4 text-green-400" />
             View Upcoming
           </Button>
           <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <FileText className="mr-2 h-4 w-4 text-rose-400" />
+            <FileText className="mr-2 h-4 w-4 text-green-400" />
             Add Notes
           </Button>
-          <Button className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white border-0">
+          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0">
             <Plus className="mr-2 h-4 w-4" />
             New Appointment
           </Button>
@@ -350,7 +350,7 @@ export default function AppointmentsPage() {
       <Dialog open={isAddingNotes} onOpenChange={setIsAddingNotes}>
         <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-rose-400">{selectedAppointment ? `Notes for ${selectedAppointment.patientName}` : 'Add Notes'}</DialogTitle>
+            <DialogTitle className="text-green-400">{selectedAppointment ? `Notes for ${selectedAppointment.patientName}` : 'Add Notes'}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -358,7 +358,7 @@ export default function AppointmentsPage() {
               <Textarea
                 id="appointment-notes"
                 placeholder="Enter detailed notes about the appointment and any recommendations..."
-                className="min-h-32 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-rose-500"
+                className="min-h-32 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-green-500"
                 defaultValue={selectedAppointment?.notes || ''}
               />
             </div>
@@ -373,7 +373,7 @@ export default function AppointmentsPage() {
             </Button>
             <Button 
               onClick={handleSaveNotes}
-              className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white border-0"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0"
             >
               Save Notes
             </Button>
@@ -385,14 +385,14 @@ export default function AppointmentsPage() {
       <Dialog open={isRequestingTests} onOpenChange={setIsRequestingTests}>
         <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-rose-400">{`Request Tests for ${selectedAppointment?.patientName || ''}`}</DialogTitle>
+            <DialogTitle className="text-green-400">{`Request Tests for ${selectedAppointment?.patientName || ''}`}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="test-type" className="text-zinc-300">Test Type</Label>
               <select 
                 id="test-type" 
-                className="bg-zinc-800 border-zinc-700 text-zinc-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                className="bg-zinc-800 border-zinc-700 text-zinc-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <option value="blood">Blood Test</option>
                 <option value="xray">X-Ray</option>
@@ -406,13 +406,13 @@ export default function AppointmentsPage() {
               <Textarea
                 id="test-notes"
                 placeholder="Enter any specific instructions or areas of focus for this test..."
-                className="min-h-24 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-rose-500"
+                className="min-h-24 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-green-500"
               />
             </div>
             <div className="grid gap-2">
               <Label className="text-zinc-300 flex items-center">
                 <Switch 
-                  className="mr-2 data-[state=checked]:bg-rose-500" 
+                  className="mr-2 data-[state=checked]:bg-green-500" 
                   defaultChecked 
                 />
                 Notify patient immediately
@@ -429,7 +429,7 @@ export default function AppointmentsPage() {
             </Button>
             <Button 
               onClick={handleSubmitTestsRequest}
-              className="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white border-0"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0"
             >
               Request Tests
             </Button>

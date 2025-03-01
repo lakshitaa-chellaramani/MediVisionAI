@@ -177,6 +177,13 @@ def generate_text():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+system_instruction1 = (
+    "Only process medical or health-related reports. "
+    "If the document is not related to health or medicine, respond with: 'This document is not a medical report.' "
+    "Focus on summarizing medical test results, diagnoses, prescriptions, or relevant health data."
+)
+
+
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure upload directory exists
@@ -198,7 +205,10 @@ def summarize_medical_report(pdf_path):
         return "No readable text found in the PDF."
 
     model = genai.GenerativeModel("gemini-1.5-flash-latest")
-    response = model.generate_content(f"Summarize this medical report in simple terms:\n\n{text}")
+    response = model.generate_content([
+        system_instruction1,
+        f"Summarize this medical report in simple terms:\n\n{text}"
+    ])
 
     return response.text if response else "Failed to generate a response."
 
