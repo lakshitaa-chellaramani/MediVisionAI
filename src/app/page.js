@@ -28,12 +28,15 @@ import {
   MessageSquare
 } from 'lucide-react';
 import ChatBox from "@/components/ChatBox";
+import { useRouter } from "next/navigation";
 
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('patients');
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const router = useRouter();
+
   const [stats, setStats] = useState({
     scansAnalyzed: 0,
     conditionsDetected: 0,
@@ -164,14 +167,16 @@ export default function Home() {
           </p>
 
           {user&&<div className="flex flex-wrap gap-4">
-            <Button size="lg" className="bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 shadow-lg shadow-green-900/50 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
+            <a href="/pages/diagnosis"> <Button size="lg" className="bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 shadow-lg shadow-green-900/50 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
               <Upload className="mr-2 h-5 w-5" /> Upload Scan
-            </Button>
+            </Button>  </a>
+            <a href="/pages/diagnosis">
             <Button size="lg" variant="outline" className="border-2 border-green-500/50 text-green-400 hover:bg-green-900/50 font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
               <Search className="mr-2 h-5 w-5" /> Analyze Reports
-            </Button>
+            </Button></a>
           </div>}
-          
+        
+
           <div className="mt-8 flex items-center gap-4 text-neutral-400">
             <div className="flex -space-x-2">
               {[...Array(4)].map((_, i) => (

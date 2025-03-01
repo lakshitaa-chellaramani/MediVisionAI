@@ -92,7 +92,7 @@ export default function Navbar() {
             <>
               <a href="/pages/appointment" className="text-neutral-300 hover:text-white">My Appointments</a>
               <a href="/pages/meditron" className="text-neutral-300 hover:text-white">MeditronAI</a>
-              <a href="/pages/doc-dashboard" className="text-neutral-300 hover:text-white">Update Availability</a>
+              <a href="/pages/doc-dashboard" className="text-neutral-300 hover:text-white">Doctor Dashboard</a>
               <a href="/pages/patients" className="text-neutral-300 hover:text-white">Patients</a>
             </>
           )}
