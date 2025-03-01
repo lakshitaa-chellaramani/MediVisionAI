@@ -2,6 +2,11 @@ from flask import Flask, request, jsonify
 import google.generativeai as genai
 import re
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+MY_ENV_VAR = os.getenv('GOOGLE_API_KEY')
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
