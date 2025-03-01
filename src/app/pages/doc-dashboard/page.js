@@ -1,4 +1,3 @@
-// app/dashboard/appointments/page.jsx
 'use client'
 
 import React, { useState } from 'react'
@@ -71,103 +70,103 @@ export default function AppointmentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#121212] text-zinc-100 p-6 pt-20">
+    <div className="min-h-screen bg-gray-50 text-gray-800 p-6 pt-20">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">Appointments</h1>
-        <p className="text-zinc-400 mt-1">Manage and schedule patient visits.</p>
+        <h1 className="text-3xl font-bold text-green-600">Appointments</h1>
+        <p className="text-gray-500 mt-1">Manage and schedule patient visits.</p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="bg-zinc-900 border-zinc-800 col-span-1">
-          <CardHeader>
-            <CardTitle className="text-green-400">Your Availability</CardTitle>
-            <CardDescription className="text-zinc-400">Set your working hours and availability status</CardDescription>
+        <Card className="bg-white border-gray-200 shadow-sm col-span-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-green-600">Your Availability</CardTitle>
+            <CardDescription className="text-gray-500">Set your working hours and availability status</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <Label htmlFor="availability" className="text-zinc-300">Available for Appointments</Label>
-                <p className="text-zinc-500 text-sm">Toggle to show your availability</p>
+                <Label htmlFor="availability" className="text-gray-700 font-medium">Available for Appointments</Label>
+                <p className="text-gray-500 text-sm">Toggle to show your availability</p>
               </div>
               <div className="flex items-center space-x-2">
                 <Switch 
                   id="availability" 
                   checked={isAvailable} 
                   onCheckedChange={setIsAvailable}
-                  className="data-[state=checked]:bg-green-500"
+                  className="data-[state=checked]:bg-green-600"
                 />
-                <span className={isAvailable ? "text-green-400" : "text-zinc-500"}>
+                <span className={isAvailable ? "text-green-600 font-medium" : "text-gray-500"}>
                   {isAvailable ? "Available" : "Busy"}
                 </span>
               </div>
             </div>
             
-            <Separator className="bg-zinc-800" />
+            <Separator className="bg-gray-200" />
             
             <div>
-              <Label className="text-zinc-300 block mb-2">Preferred Working Hours</Label>
+              <Label className="text-gray-700 font-medium block mb-2">Preferred Working Hours</Label>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-zinc-800 p-3 rounded-md">
-                  <p className="text-sm text-zinc-400">Weekdays</p>
-                  <p className="text-zinc-300">9:00 AM - 5:00 PM</p>
+                <div className="bg-gray-100 p-3 rounded-md">
+                  <p className="text-sm text-gray-500">Weekdays</p>
+                  <p className="text-gray-700 font-medium">9:00 AM - 5:00 PM</p>
                 </div>
-                <div className="bg-zinc-800 p-3 rounded-md">
-                  <p className="text-sm text-zinc-400">Weekends</p>
-                  <p className="text-zinc-300">10:00 AM - 2:00 PM</p>
+                <div className="bg-gray-100 p-3 rounded-md">
+                  <p className="text-sm text-gray-500">Weekends</p>
+                  <p className="text-gray-700 font-medium">10:00 AM - 2:00 PM</p>
                 </div>
               </div>
             </div>
             
             <Calendar 
-              className="bg-zinc-800 rounded-md border-zinc-700 text-zinc-300"
+              className="rounded-md border-gray-200 text-gray-800"
               selected={new Date()}
               mode="single"
             />
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0">
+            <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
               Update Availability
             </Button>
           </CardFooter>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 col-span-1 lg:col-span-2">
+        <Card className="bg-white border-gray-200 shadow-sm col-span-1 lg:col-span-2">
           <Tabs defaultValue="pending" className="w-full">
             <CardHeader className="pb-0">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-green-400">Appointment Requests</CardTitle>
-                <TabsList className="bg-zinc-800">
-                  <TabsTrigger value="pending" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
+                <CardTitle className="text-green-600">Appointment Requests</CardTitle>
+                <TabsList className="bg-gray-100">
+                  <TabsTrigger value="pending" className="data-[state=active]:bg-green-600 data-[state=active]:text-white text-gray-700">
                     Pending
                   </TabsTrigger>
-                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
+                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-green-600 data-[state=active]:text-white text-gray-700">
                     Confirmed
                   </TabsTrigger>
-                  <TabsTrigger value="completed" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
+                  <TabsTrigger value="completed" className="data-[state=active]:bg-green-600 data-[state=active]:text-white text-gray-700">
                     Completed
                   </TabsTrigger>
                 </TabsList>
               </div>
-              <CardDescription className="text-zinc-400 mt-1">Review and manage appointment requests</CardDescription>
+              <CardDescription className="text-gray-500 mt-1">Review and manage appointment requests</CardDescription>
             </CardHeader>
 
             <CardContent className="pt-6">
               <TabsContent value="pending" className="m-0">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
-                      <TableHead className="text-zinc-400">Patient</TableHead>
-                      <TableHead className="text-zinc-400">Requested Date & Time</TableHead>
-                      <TableHead className="text-zinc-400">Reason for Visit</TableHead>
-                      <TableHead className="text-zinc-400 text-right">Actions</TableHead>
+                    <TableRow className="border-gray-200 hover:bg-gray-50">
+                      <TableHead className="text-gray-600">Patient</TableHead>
+                      <TableHead className="text-gray-600">Requested Date & Time</TableHead>
+                      <TableHead className="text-gray-600">Reason for Visit</TableHead>
+                      <TableHead className="text-gray-600 text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {pendingAppointments.map((appointment) => (
-                      <TableRow key={appointment.id} className="border-zinc-800 text-zinc-100 hover:bg-zinc-800/50">
+                      <TableRow key={appointment.id} className="border-gray-200 text-gray-700 hover:bg-gray-50">
                         <TableCell className="font-medium">
-                          <div className="flex items-center space-x-2 text-zinc-100">
-                            <Avatar>
+                          <div className="flex items-center space-x-2">
+                            <Avatar className="border border-gray-200">
                               <img src={appointment.avatar} alt={appointment.patientName} />
                             </Avatar>
                             <span>{appointment.patientName}</span>
@@ -175,7 +174,7 @@ export default function AppointmentsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-1">
-                            <CalendarIcon className="h-4 w-4 text-zinc-100" />
+                            <CalendarIcon className="h-4 w-4 text-gray-500" />
                             <span>{appointment.requestedDateTime}</span>
                           </div>
                         </TableCell>
@@ -186,7 +185,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleApprove(appointment.id)}
-                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
+                              className="border-green-600 text-green-600 hover:bg-green-50"
                             >
                               <CheckCircle className="mr-1 h-4 w-4" />
                               Approve
@@ -195,7 +194,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleReject(appointment.id)}
-                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
+                              className="border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               <XCircle className="mr-1 h-4 w-4" />
                               Reject
@@ -207,7 +206,7 @@ export default function AppointmentsPage() {
                   </TableBody>
                 </Table>
                 {pendingAppointments.length === 0 && (
-                  <div className="flex flex-col items-center justify-center py-8 text-zinc-500">
+                  <div className="flex flex-col items-center justify-center py-8 text-gray-500">
                     <Users className="h-12 w-12 mb-2 opacity-50" />
                     <p>No pending appointment requests</p>
                   </div>
@@ -217,20 +216,20 @@ export default function AppointmentsPage() {
               <TabsContent value="confirmed" className="m-0">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
-                      <TableHead className="text-zinc-400">Patient</TableHead>
-                      <TableHead className="text-zinc-400">Date & Time</TableHead>
-                      <TableHead className="text-zinc-400">Condition</TableHead>
-                      <TableHead className="text-zinc-400">Status</TableHead>
-                      <TableHead className="text-zinc-400 text-right">Actions</TableHead>
+                    <TableRow className="border-gray-200 hover:bg-gray-50">
+                      <TableHead className="text-gray-600">Patient</TableHead>
+                      <TableHead className="text-gray-600">Date & Time</TableHead>
+                      <TableHead className="text-gray-600">Condition</TableHead>
+                      <TableHead className="text-gray-600">Status</TableHead>
+                      <TableHead className="text-gray-600 text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {confirmedAppointments.map((appointment) => (
-                      <TableRow key={appointment.id} className="border-zinc-800 hover:bg-zinc-800/50">
+                      <TableRow key={appointment.id} className="border-gray-200 hover:bg-gray-50">
                         <TableCell className="font-medium">
                           <div className="flex items-center space-x-2">
-                            <Avatar>
+                            <Avatar className="border border-gray-200">
                               <img src={appointment.avatar} alt={appointment.patientName} />
                             </Avatar>
                             <span>{appointment.patientName}</span>
@@ -238,13 +237,13 @@ export default function AppointmentsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-1">
-                            <Clock className="h-4 w-4 text-zinc-500" />
+                            <Clock className="h-4 w-4 text-gray-500" />
                             <span>{appointment.dateTime}</span>
                           </div>
                         </TableCell>
                         <TableCell>{appointment.condition}</TableCell>
                         <TableCell>
-                          <Badge className={appointment.status === "In Progress" ? "bg-amber-500/20 text-amber-500 hover:bg-amber-500/30" : "bg-emerald-500/20 text-emerald-500 hover:bg-emerald-500/30"}>
+                          <Badge className={appointment.status === "In Progress" ? "bg-amber-100 text-amber-700 hover:bg-amber-200" : "bg-green-100 text-green-700 hover:bg-green-200"}>
                             {appointment.status}
                           </Badge>
                         </TableCell>
@@ -254,7 +253,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleRequestTests(appointment)}
-                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
+                              className="border-green-600 text-green-600 hover:bg-green-50"
                             >
                               <FileSearch className="mr-1 h-4 w-4" />
                               Request Tests
@@ -262,7 +261,7 @@ export default function AppointmentsPage() {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
+                              className="border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               <RotateCcw className="mr-1 h-4 w-4" />
                               Reschedule
@@ -278,19 +277,19 @@ export default function AppointmentsPage() {
               <TabsContent value="completed" className="m-0">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
-                      <TableHead className="text-zinc-400">Patient</TableHead>
-                      <TableHead className="text-zinc-400">Date</TableHead>
-                      <TableHead className="text-zinc-400">Condition Discussed</TableHead>
-                      <TableHead className="text-zinc-400 text-right">Actions</TableHead>
+                    <TableRow className="border-gray-200 hover:bg-gray-50">
+                      <TableHead className="text-gray-600">Patient</TableHead>
+                      <TableHead className="text-gray-600">Date</TableHead>
+                      <TableHead className="text-gray-600">Condition Discussed</TableHead>
+                      <TableHead className="text-gray-600 text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {completedAppointments.map((appointment) => (
-                      <TableRow key={appointment.id} className="border-zinc-800 hover:bg-zinc-800/50">
+                      <TableRow key={appointment.id} className="border-gray-200 hover:bg-gray-50">
                         <TableCell className="font-medium">
                           <div className="flex items-center space-x-2">
-                            <Avatar>
+                            <Avatar className="border border-gray-200">
                               <img src={appointment.avatar} alt={appointment.patientName} />
                             </Avatar>
                             <span>{appointment.patientName}</span>
@@ -298,7 +297,7 @@ export default function AppointmentsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-1">
-                            <CalendarIcon className="h-4 w-4 text-zinc-500" />
+                            <CalendarIcon className="h-4 w-4 text-gray-500" />
                             <span>{appointment.date}</span>
                           </div>
                         </TableCell>
@@ -308,7 +307,7 @@ export default function AppointmentsPage() {
                             variant="outline" 
                             size="sm" 
                             onClick={() => handleAddNotes(appointment)}
-                            className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
+                            className="border-green-600 text-green-600 hover:bg-green-50"
                           >
                             <FileText className="mr-1 h-4 w-4" />
                             {appointment.notes ? "View Notes" : "Add Notes"}
@@ -324,41 +323,26 @@ export default function AppointmentsPage() {
         </Card>
       </div>
 
-      {/* Bottom sticky action bar */}
-      {/* <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-800 shadow-lg">
-        <div className="flex items-center space-x-4">
-          <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <Calendar className="mr-2 h-4 w-4 text-green-400" />
-            Set Availability
-          </Button>
-          <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <Clock className="mr-2 h-4 w-4 text-green-400" />
-            View Upcoming
-          </Button>
-          <Button className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300">
-            <FileText className="mr-2 h-4 w-4 text-green-400" />
-            Add Notes
-          </Button>
-          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0">
-            <Plus className="mr-2 h-4 w-4" />
-            New Appointment
-          </Button>
-        </div>
-      </div> */}
+      {/* Add floating action button for quick actions */}
+      <div className="fixed bottom-6 right-6">
+        <Button className="h-14 w-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg">
+          <Plus className="h-6 w-6 text-white" />
+        </Button>
+      </div>
 
       {/* Add Notes Dialog */}
       <Dialog open={isAddingNotes} onOpenChange={setIsAddingNotes}>
-        <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
+        <DialogContent className="bg-white border-gray-200 text-gray-800 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-green-400">{selectedAppointment ? `Notes for ${selectedAppointment.patientName}` : 'Add Notes'}</DialogTitle>
+            <DialogTitle className="text-green-600">{selectedAppointment ? `Notes for ${selectedAppointment.patientName}` : 'Add Notes'}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="appointment-notes" className="text-zinc-300">Post-Appointment Notes & Recommendations</Label>
+              <Label htmlFor="appointment-notes" className="text-gray-700">Post-Appointment Notes & Recommendations</Label>
               <Textarea
                 id="appointment-notes"
                 placeholder="Enter detailed notes about the appointment and any recommendations..."
-                className="min-h-32 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-green-500"
+                className="min-h-32 bg-white border-gray-300 text-gray-800 placeholder:text-gray-400 focus-visible:ring-green-600"
                 defaultValue={selectedAppointment?.notes || ''}
               />
             </div>
@@ -367,13 +351,13 @@ export default function AppointmentsPage() {
             <Button 
               variant="outline" 
               onClick={() => setIsAddingNotes(false)}
-              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
+              className="border-gray-300 text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </Button>
             <Button 
               onClick={handleSaveNotes}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0"
+              className="bg-green-600 hover:bg-green-700 text-white"
             >
               Save Notes
             </Button>
@@ -383,16 +367,16 @@ export default function AppointmentsPage() {
 
       {/* Request Tests Dialog */}
       <Dialog open={isRequestingTests} onOpenChange={setIsRequestingTests}>
-        <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
+        <DialogContent className="bg-white border-gray-200 text-gray-800 sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-green-400">{`Request Tests for ${selectedAppointment?.patientName || ''}`}</DialogTitle>
+            <DialogTitle className="text-green-600">{`Request Tests for ${selectedAppointment?.patientName || ''}`}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="test-type" className="text-zinc-300">Test Type</Label>
+              <Label htmlFor="test-type" className="text-gray-700">Test Type</Label>
               <select 
                 id="test-type" 
-                className="bg-zinc-800 border-zinc-700 text-zinc-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="bg-white border-gray-300 text-gray-800 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-600"
               >
                 <option value="blood">Blood Test</option>
                 <option value="xray">X-Ray</option>
@@ -402,17 +386,17 @@ export default function AppointmentsPage() {
               </select>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="test-notes" className="text-zinc-300">Additional Instructions</Label>
+              <Label htmlFor="test-notes" className="text-gray-700">Additional Instructions</Label>
               <Textarea
                 id="test-notes"
                 placeholder="Enter any specific instructions or areas of focus for this test..."
-                className="min-h-24 bg-zinc-800 border-zinc-700 text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-green-500"
+                className="min-h-24 bg-white border-gray-300 text-gray-800 placeholder:text-gray-400 focus-visible:ring-green-600"
               />
             </div>
             <div className="grid gap-2">
-              <Label className="text-zinc-300 flex items-center">
+              <Label className="text-gray-700 flex items-center">
                 <Switch 
-                  className="mr-2 data-[state=checked]:bg-green-500" 
+                  className="mr-2 data-[state=checked]:bg-green-600" 
                   defaultChecked 
                 />
                 Notify patient immediately
@@ -423,13 +407,13 @@ export default function AppointmentsPage() {
             <Button 
               variant="outline" 
               onClick={() => setIsRequestingTests(false)}
-              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
+              className="border-gray-300 text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </Button>
             <Button 
               onClick={handleSubmitTestsRequest}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0"
+              className="bg-green-600 hover:bg-green-700 text-white"
             >
               Request Tests
             </Button>
