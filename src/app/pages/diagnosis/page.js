@@ -63,34 +63,34 @@ export default function DiagnosisPage() {
       setIsLoading(true);
       try {
         const formData = new FormData();
-        formData.append('file', selectedReportFile);
-        
-        const response = await fetch('http://127.0.0.1:5500/generate-report', {
-          method: 'POST',
+        formData.append("file", selectedReportFile);
+  
+        const response = await fetch("http://127.0.0.1:5500/generate-report", {
+          method: "POST",
           body: formData,
         });
-        
+  
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-        
-        const result = await response.text();
+  
+        const result = await response.json(); // Parse JSON response
         setAiReport({
-          type: 'report',
-          result: result,
+          type: "report",
+          result: result.summary, // Extract only the summary text
         });
       } catch (error) {
-        console.error('Error analyzing report:', error);
+        console.error("Error analyzing report:", error);
         setAiReport({
-          type: 'error',
-          result: 'An error occurred while analyzing the report. Please try again.',
+          type: "error",
+          result: "An error occurred while analyzing the report. Please try again.",
         });
       } finally {
         setIsLoading(false);
       }
     }
   };
-
+  
   const handleTabChange = (value) => {
     setActiveTab(value);
   };

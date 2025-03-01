@@ -153,170 +153,221 @@ export default function FindDoctorsPage() {
   };
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white pt-16">
-      {/* Header and Filters Section */}
+    <div className="bg-neutral-900 min-h-screen text-white">
       <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-8 text-green-400">Find Specialists</h1>
-        
-        <div className="bg-neutral-800 p-6 rounded-xl mb-8 shadow-lg">
-          <h2 className="text-lg font-medium mb-4 text-green-300">Filter Options</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">Specialty</label>
-              <Select defaultValue="all" onValueChange={(value) => handleFilterChange('specialty', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
-                  <div className="flex items-center gap-2">
-                    <Stethoscope className="w-4 h-4 text-green-400" />
-                    <span>{filters.specialty === 'all' ? 'All Specialties' : filters.specialty}</span>
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
-                  <SelectItem value="all">All Specialties</SelectItem>
-                  <SelectItem value="Cardiologist">Cardiologist</SelectItem>
-                  <SelectItem value="Neurologist">Neurologist</SelectItem>
-                  <SelectItem value="Orthopedic">Orthopedic</SelectItem>
-                  <SelectItem value="Radiologist">Radiologist</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">Location</label>
-              <Select defaultValue="all" onValueChange={(value) => handleFilterChange('location', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-green-400" />
-                    <span>{filters.location === 'all' ? 'All Locations' : filters.location}</span>
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
-                  <SelectItem value="all">All Locations</SelectItem>
-                  <SelectItem value="Mumbai">Mumbai</SelectItem>
-                  <SelectItem value="Delhi">Delhi</SelectItem>
-                  <SelectItem value="Bangalore">Bangalore</SelectItem>
-                  <SelectItem value="Chennai">Chennai</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <label className="text-sm text-gray-400 mb-1 block">Availability</label>
-              <Select defaultValue="all" onValueChange={(value) => handleFilterChange('available', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span>{filters.available === 'all' ? 'All' : filters.available === 'true' ? 'Available' : 'Unavailable'}</span>
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="true">Available</SelectItem>
-                  <SelectItem value="false">Unavailable</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-rose-400">Find Specialists</h1>
           
-          <Button className="bg-green-500 hover:bg-green-600 text-white mt-4 w-full md:w-auto">
-            <Filter className="w-4 h-4 mr-2" /> Apply Filters
-          </Button>
-        </div>
-
-        {/* Doctors Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {filteredDoctors.map((doctor) => (
-            <Card key={doctor.id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg hover:shadow-green-900/20 transition-all duration-300">
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-1/3 p-4 flex justify-center items-center bg-neutral-700">
-                  <img 
-                    src={doctor.image} 
-                    alt={doctor.name} 
-                    className="w-32 h-32 object-cover rounded-full border-2 border-green-500/20"
-                  />
+          {/* Filter Button */}
+          <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-rose-500 hover:bg-rose-600 flex items-center gap-2">
+                <Filter className="w-4 h-4" /> Filters
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-rose-400">Filter Doctors</h3>
+                
+                {/* Location Filter */}
+                <div>
+                  <label className="text-neutral-300 block mb-1">Location</label>
+                  <Select 
+                    value={filters.location} 
+                    onValueChange={(value) => handleFilterChange("location", value)}
+                  >
+                    <SelectTrigger className="w-full bg-neutral-700 border border-neutral-600 text-neutral-200">
+                      <SelectValue placeholder="Select location" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-700 border border-neutral-600 text-neutral-200">
+                      <SelectItem value="">All Locations</SelectItem>
+                      {locations.map(location => (
+                        <SelectItem key={location} value={location}>{location}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 
-                <div className="md:w-2/3 p-4">
-                  <CardHeader className="p-0 pb-2">
-                    <h3 className="text-xl font-semibold text-green-400">{doctor.name}</h3>
-                    <div className={`text-xs font-medium rounded-full px-2 py-1 inline-block mt-1 ${doctor.available ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
-                      {doctor.available ? 'Available' : 'Unavailable'}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="p-0 py-3">
-                    <div className="flex flex-col gap-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Stethoscope className="w-4 h-4 text-green-300" />
-                        <span className="text-gray-300">{doctor.specialty}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-green-300" />
-                        <span className="text-gray-300">{doctor.location}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter className="p-0 pt-3">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button 
-                          className={`w-full ${doctor.available ? 'bg-green-500 hover:bg-green-600' : 'bg-neutral-700 cursor-not-allowed'}`} 
-                          onClick={() => setSelectedDoctor(doctor)} 
-                          disabled={!doctor.available}
-                        >
-                          {doctor.available ? 'Book Appointment' : 'Not Available'}
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="bg-neutral-900 border-neutral-700 text-white">
-                        <DialogHeader>
-                          <DialogTitle className="text-green-400">Book Appointment with {selectedDoctor?.name}</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4 py-4">
-                          <div>
-                            <label className="text-sm text-gray-400 mb-1 block">Description</label>
-                            <Input
-                              placeholder="Short description of your issue..."
-                              className="bg-neutral-800 text-white border-neutral-700"
-                              onChange={(e) => setAppointmentDetails({ ...appointmentDetails, description: e.target.value })}
-                            />
-                          </div>
-                          
-                          <div>
-                            <label className="text-sm text-gray-400 mb-1 block">Appointment Type</label>
-                            <Select onValueChange={(value) => setAppointmentDetails({ ...appointmentDetails, appointmentType: value })}>
-                              <SelectTrigger className="bg-neutral-800 text-white border-neutral-700">
-                                Appointment Type
-                              </SelectTrigger>
-                              <SelectContent className="bg-neutral-800 text-white border-neutral-700">
-                                <SelectItem value="Virtual">Virtual Consultation</SelectItem>
-                                <SelectItem value="In-Person">In-Person Visit</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <Button className="bg-green-500 hover:bg-green-600 text-white w-full mt-4">
-                            Confirm Appointment
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </CardFooter>
+                {/* Specialization Filter */}
+                <div>
+                  <label className="text-neutral-300 block mb-1">Specialization</label>
+                  <Select 
+                    value={filters.specialization} 
+                    onValueChange={(value) => handleFilterChange("specialization", value)}
+                  >
+                    <SelectTrigger className="w-full bg-neutral-700 border border-neutral-600 text-neutral-200">
+                      <SelectValue placeholder="Select specialization" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-700 border border-neutral-600 text-neutral-200">
+                      <SelectItem value="">All Specializations</SelectItem>
+                      {specializations.map(spec => (
+                        <SelectItem key={spec} value={spec}>{spec}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Availability Filter */}
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="available" 
+                    checked={filters.onlyAvailable}
+                    onCheckedChange={(checked) => handleFilterChange("onlyAvailable", checked)}
+                    className="border-neutral-500"
+                  />
+                  <Label htmlFor="available" className="text-neutral-300">Show only available doctors</Label>
+                </div>
+                
+                {/* Action Buttons */}
+                <div className="flex justify-between gap-4 pt-2">
+                  <Button 
+                    onClick={resetFilters} 
+                    className="bg-neutral-700 hover:bg-neutral-600 text-neutral-200"
+                  >
+                    Reset Filters
+                  </Button>
+                  <Button 
+                    onClick={() => setIsFilterOpen(false)} 
+                    className="bg-rose-500 hover:bg-rose-600"
+                  >
+                    Apply Filters
+                  </Button>
                 </div>
               </div>
-            </Card>
-          ))}
+            </DialogContent>
+          </Dialog>
         </div>
+        
+        {/* Active Filters Display */}
+        {(filters.location || filters.specialization || filters.onlyAvailable) && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {filters.location && (
+              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+                <MapPin className="w-3 h-3 mr-1" /> {filters.location}
+                <button 
+                  className="ml-2 text-neutral-400 hover:text-neutral-200"
+                  onClick={() => handleFilterChange("location", "")}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            {filters.specialization && (
+              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+                <Stethoscope className="w-3 h-3 mr-1" /> {filters.specialization}
+                <button 
+                  className="ml-2 text-neutral-400 hover:text-neutral-200"
+                  onClick={() => handleFilterChange("specialization", "")}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            {filters.onlyAvailable && (
+              <div className="bg-neutral-800 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+                Available Only
+                <button 
+                  className="ml-2 text-neutral-400 hover:text-neutral-200"
+                  onClick={() => handleFilterChange("onlyAvailable", false)}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
-        {/* Pagination */}
-        <div className="flex justify-center">
-          <Pagination>
-            <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">Previous</PaginationItem>
-            <PaginationItem className="bg-green-500 text-white">1</PaginationItem>
-            <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">2</PaginationItem>
-            <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">3</PaginationItem>
-            <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">Next</PaginationItem>
-          </Pagination>
-        </div>
+        {/* Results Count */}
+        <p className="text-neutral-400 mb-4">
+          Showing {filteredDoctors.length} doctor{filteredDoctors.length !== 1 ? 's' : ''}
+        </p>
+
+        {/* Doctors Grid */}
+        {loading ? (
+          <p className="text-center text-rose-400">Loading doctors...</p>
+        ) : filteredDoctors.length === 0 ? (
+          <div className="text-center py-12 bg-neutral-800 rounded-xl">
+            <p className="text-neutral-300 mb-2">No doctors found matching your filters</p>
+            <Button onClick={resetFilters} className="bg-rose-500 hover:bg-rose-600">
+              Reset Filters
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {filteredDoctors.map((doctor) => (
+              <Card key={doctor._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg">
+                <CardHeader className="p-4">
+                  <h3 className="text-xl font-semibold text-rose-400">{doctor.name || "No Name Provided"}</h3>
+                  <p className="text-gray-300">
+                    <Stethoscope className="w-4 h-4 inline-block text-rose-300" /> {doctor.specialization}
+                  </p>
+                  <p className="text-gray-300">
+                    <MapPin className="w-4 h-4 inline-block text-rose-300" /> {doctor.clinicLocation}
+                  </p>
+                  <p className="text-gray-300">
+                    <DollarSign className="w-4 h-4 inline-block text-rose-300" /> ${doctor.consultationFee}
+                  </p>
+                </CardHeader>
+                <CardFooter className="p-4">
+                  <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        className="w-full bg-rose-500 hover:bg-rose-600"
+                        disabled={!doctor.availability}
+                        onClick={() => setSelectedDoctor(doctor)}
+                      >
+                        {doctor.availability ? "Book Appointment" : "Not Available"}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
+                      <div className="space-y-4">
+                        {/* Date Input */}
+                        <div>
+                          <label className="text-neutral-300 block mb-1">Select Date</label>
+                          <Input
+                            type="date"
+                            min={getTodayDate()}
+                            className="w-full bg-neutral-700 border border-neutral-600 p-2 text-neutral-200"
+                            onChange={(e) => setAppointmentData({ ...appointmentData, date: e.target.value })}
+                          />
+                        </div>
+
+                        {/* Time Input */}
+                        <div>
+                          <label className="text-neutral-300 block mb-1">Select Time</label>
+                          <Input
+                            type="time"
+                            className="w-full bg-neutral-700 border border-neutral-600 p-2 text-neutral-200"
+                            onChange={(e) => setAppointmentData({ ...appointmentData, time: e.target.value })}
+                          />
+                        </div>
+
+                        {/* Reason Input */}
+                        <div>
+                          <label className="text-neutral-300 block mb-1">Reason for Visit</label>
+                          <Input
+                            type="text"
+                            placeholder="Enter reason"
+                            className="w-full bg-neutral-700 border border-neutral-600 p-2 text-neutral-200"
+                            onChange={(e) => setAppointmentData({ ...appointmentData, reason: e.target.value })}
+                          />
+                        </div>
+
+                        {/* Submit Button */}
+                        <Button
+                          onClick={handleBookAppointment}
+                          className="bg-rose-500 hover:bg-rose-600 text-white w-full"
+                        >
+                          Confirm Appointment
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
