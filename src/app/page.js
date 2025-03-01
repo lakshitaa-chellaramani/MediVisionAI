@@ -59,7 +59,7 @@ export default function Home() {
         <meta name="description" content="AI-powered medical imaging for early detection & accurate diagnosis" />
       </Head>
 
-      {/* Header */}
+      {/* Header
       <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function Home() {
             <Button className="bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 shadow-md shadow-rose-900/40">Get Started</Button>
           </div>
         </div>
-      </header>
+      </header> */}
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 md:min-h-screen flex items-center overflow-hidden">
