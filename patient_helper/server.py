@@ -12,7 +12,7 @@ import pytesseract
 from fuzzywuzzy import fuzz
 import cv2
 import fitz
-# import ollama
+import ollama
 
 
 # load_dotenv()
