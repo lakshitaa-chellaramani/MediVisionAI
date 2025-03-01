@@ -12,20 +12,35 @@ export default function AISymptomChecker() {
 
   const handleSend = async () => {
     if (!input.trim()) return;
+
     const userMessage = { role: "user", text: input };
-    setMessages([...messages, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
 
-    // Simulating AI response delay
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://127.0.0.1:5500", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: input })
+      });
+
+      const data = await response.json();
+
       const aiResponse = {
         role: "ai",
-        text: `Based on your symptoms, you may be experiencing mild fatigue. It's recommended to stay hydrated and monitor for additional symptoms.`
+        text: data.response || "I'm not sure about that. Please try again."
       };
+
       setMessages((prev) => [...prev, aiResponse]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", text: "Failed to connect to the server. Please try again later." }
+      ]);
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
