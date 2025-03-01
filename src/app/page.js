@@ -84,78 +84,149 @@ export default function Home() {
       </header> */}
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 md:min-h-screen flex items-center overflow-hidden">
-        {/* Animated particles background */}
-        <div className="absolute inset-0 z-0 grid grid-cols-5 gap-4">
-  {[...Array(25)].map((_, i) => (
-    <motion.div
-      key={i}
-      className="w-8 h-8 bg-green-400/30"
-      animate={{
-        scale: [1, 1.5, 1],
-        opacity: [0.2, 0.8, 0.2],
-      }}
-      transition={{
-        duration: 10 + Math.random() * 20,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-  ))}
+      <section className="relative pt-32 pb-24 md:min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-black to-green-950">
+  {/* Grid foundation with randomly positioned squares moving rightward */}
+  <div className="absolute inset-0 z-0">
+    {[...Array(60)].map((_, i) => {
+      // Create a more random but still grid-like positioning
+      const row = Math.floor(i / 10);
+      const col = i % 10;
+      const randOffsetX = Math.random() * 30 - 15;
+      const randOffsetY = Math.random() * 30 - 15;
+      const baseX = (col * 10) + randOffsetX;
+      const baseY = (row * 10) + randOffsetY;
+      
+      return (
+        <motion.div
+        key={i}
+        className={`absolute w-8 h-8 ${i % 3 === 0 ? 'bg-green-500/30' : i % 3 === 1 ? 'bg-cyan-400/20' : 'bg-emerald-300/25'}`}
+        style={{
+          top: `${baseY}%`,
+          left: `${baseX}%`,
+        }}
+        animate={{
+          x: [0, 40, 0], // Rightward movement and back
+          opacity: [0.2, 0.6, 0.2],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 25 + (i % 5) * 5, // Much slower movement with staggered durations
+          repeat: Infinity,
+          ease: "easeInOut",
+          // Longer delay for more gradual wave effect
+          delay: (i % 10) * 0.8,
+        }}
+      />
+    );
+  })}
 </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  AI-Powered Medical Imaging for <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">Early Detection & Accurate Diagnosis</span>
-                </h1>
-                <p className="text-lg text-neutral-300 mb-8 max-w-2xl">
-                  Harness the power of artificial intelligence to revolutionize medical imaging. Our cutting-edge platform helps healthcare professionals detect conditions earlier and with greater precision.
-                </p>
+  
+  {/* Glowing overlay effect */}
+  <div className="absolute inset-0 bg-gradient-radial from-green-500/5 to-transparent"></div>
+  
+  <div className="container mx-auto px-4 relative z-10">
+    <div className="flex flex-col lg:flex-row items-center gap-12">
+      <div className="lg:w-1/2">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="inline-block px-4 py-1 rounded-full bg-green-900/50 border border-green-500/30 text-green-400 text-sm font-medium mb-6 backdrop-blur-sm">
+            Revolutionary Healthcare Technology
+          </span>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            AI-Powered Medical Imaging for <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-300 to-cyan-400">Early Detection & Accurate Diagnosis</span>
+          </h1>
+          
+          <p className="text-lg text-neutral-200 mb-8 max-w-2xl">
+            Harness the power of artificial intelligence to revolutionize medical imaging. Our cutting-edge platform helps healthcare professionals detect conditions earlier and with greater precision.
+          </p>
 
-                <div className="flex flex-wrap gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 shadow-lg shadow-green-900/30">
-                    <Upload className="mr-2 h-5 w-5" /> Upload Scan
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-green-500 text-green-400 hover:bg-green-950">
-                    <Search className="mr-2 h-5 w-5" /> Analyze Reports
-                  </Button>
+          <div className="flex flex-wrap gap-4">
+            <Button size="lg" className="bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 shadow-lg shadow-green-900/50 text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
+              <Upload className="mr-2 h-5 w-5" /> Upload Scan
+            </Button>
+            <Button size="lg" variant="outline" className="border-2 border-green-500/50 text-green-400 hover:bg-green-900/50 font-medium px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
+              <Search className="mr-2 h-5 w-5" /> Analyze Reports
+            </Button>
+          </div>
+          
+          <div className="mt-8 flex items-center gap-4 text-neutral-400">
+            <div className="flex -space-x-2">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="w-8 h-8 rounded-full bg-green-800 border-2 border-green-950 flex items-center justify-center text-xs font-bold">
+                  {['MD', 'RN', 'Dr', 'CT'][i]}
                 </div>
-              </motion.div>
+              ))}
             </div>
+            <span>Trusted by 2,000+ healthcare professionals</span>
+          </div>
+        </motion.div>
+      </div>
 
-            <div className="lg:w-1/2 relative h-64 md:h-96 lg:h-auto">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1 }}
-                className="relative w-full h-full"
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-green-900/20 backdrop-blur-xl flex items-center justify-center shadow-2xl shadow-green-900/30 border border-green-800/50">
-                    <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-green-800/10 backdrop-blur-xl flex items-center justify-center border border-green-700/30">
-                      <div className="relative w-40 h-40 md:w-48 md:h-48">
-                        <Image 
-                          src="/assets/img4.png" 
-                          alt="AI Brain Scan Visualization" 
-                          layout="fill"
-                          className="object-contain"
-                        />
-                      </div>
-                    </div>
-                  </div>
+      <div className="lg:w-1/2 relative h-64 md:h-96 lg:h-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative w-full h-full"
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Outer glow effect */}
+            <div className="absolute w-96 h-96 rounded-full bg-green-500/10 animate-pulse"></div>
+            
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-green-800/70 to-green-900/80 backdrop-blur-xl flex items-center justify-center shadow-2xl shadow-green-500/20 border border-green-500/30 relative">
+              {/* Square element orbiting */}
+              <motion.div 
+                className="absolute w-6 h-6 bg-cyan-400 shadow-lg shadow-cyan-400/50"
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 12,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                style={{
+                  left: "50%",
+                  top: "-10px",
+                  translateX: "-50%",
+                }}
+              />
+              
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-tl from-green-900/80 to-green-800/40 backdrop-blur-xl flex items-center justify-center border border-green-700/50 relative overflow-hidden">
+                {/* Scan lines effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-b from-transparent via-green-400/20 to-transparent"
+                  animate={{
+                    y: ["-100%", "200%"]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ height: "30%" }}
+                />
+                
+                <div className="relative w-40 h-40 md:w-48 md:h-48">
+                  <Image 
+                    src="/assets/img4.png" 
+                    alt="AI Brain Scan Visualization" 
+                    layout="fill"
+                    className="object-contain"
+                  />
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
+        </motion.div>
+      </div>
+    </div>
+  </div>
+</section>
       {/* Stats Section */}
       <section className="py-16 bg-neutral-900/50 border-y border-neutral-800 relative overflow-hidden">
         <div className="container mx-auto px-4">
