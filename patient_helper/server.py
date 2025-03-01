@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import google.generativeai as genai
 import re
+from flask_cors import CORS
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
@@ -116,6 +117,7 @@ doctor_types = [
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Allow requests from Next.js
 
 # Set up Google Generative AI API Key
 GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
@@ -155,6 +157,8 @@ def generate_text():
         if not prompt:
             return jsonify({"error": "Prompt is required"}), 400
 
+        print(prompt)
+        
         # Send user message (context is remembered)
         response = chat_session.send_message(prompt)
         
