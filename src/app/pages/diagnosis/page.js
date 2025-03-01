@@ -70,7 +70,7 @@ export default function DiagnosisPage() {
         const formData = new FormData();
         formData.append("file", selectedReportFile);
   
-        const response = await fetch("http://127.0.0.1:5500/generate-scan-report", {
+        const response = await fetch("http://127.0.0.1:5500/generate-report", {
           method: "POST",
           body: formData,
         });
