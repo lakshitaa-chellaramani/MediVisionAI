@@ -2,7 +2,29 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import PatientDetails from "@/models/PatientDetails";
 
-// 📌 **GET - Fetch Patient Details by Email**
+// 📌 **PUT - Update Patient Details**
+export async function PUT(req) {
+  try {
+    await connectToDatabase();
+    const body = await req.json();
+
+    if (!body.email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
+    const updatedPatient = await PatientDetails.findOneAndUpdate({ email: body.email }, body, { new: true });
+
+    if (!updatedPatient) {
+      return NextResponse.json({ error: "Patient not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, message: "Patient details updated successfully" }, { status: 200 });
+  } catch (error) {
+    console.error("Error updating patient details:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
 export async function GET(req) {
   try {
     await connectToDatabase();
