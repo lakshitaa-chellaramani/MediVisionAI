@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -65,7 +66,14 @@ export default function UserDetailsForm() {
       });
 
       if (response.ok) {
-        router.push("/");
+        // Redirect based on role
+        if (formData.role === "Patient") {
+          router.push("/pages/patientDetails");
+        } else if (formData.role === "Doctor") {
+          router.push("/pages/doctorDetails");
+        } else {
+          router.push("/");
+        }
       } else {
         console.error("Failed to save user data");
       }

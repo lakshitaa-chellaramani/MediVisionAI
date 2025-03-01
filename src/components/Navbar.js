@@ -40,6 +40,15 @@ export default function Navbar() {
     fetchUser();
   }, [router]);
 
+  // Function to handle profile redirection based on user role
+  const handleProfileRedirect = () => {
+    if (userRole === "Doctor") {
+      router.push("/pages/doctor-profile");
+    } else {
+      router.push("/pages/patient-profile");
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -91,8 +100,9 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {loading ? null : user ? (
             <>
-
-              <a href='/pages/profile'><span className="text-neutral-300">{user.given_name || "User"}</span></a>
+              <button onClick={handleProfileRedirect} className="text-neutral-300 hover:text-white transition">
+                {user.given_name || "Profile"}
+              </button>
               <LogoutLink>
                 <Button variant="outline" className="border-rose-500 text-rose-400 hover:bg-rose-950">
                   Logout
