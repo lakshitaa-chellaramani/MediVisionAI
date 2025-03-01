@@ -12,6 +12,9 @@ export default function DiagnosisPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [aiReport, setAiReport] = useState(null);
   const [activeTab, setActiveTab] = useState("scans");
+  const [user, setUser] = useState(null);
+
+  
 
   const handleScanFileUpload = (event) => {
     const file = event.target.files[0];
@@ -69,11 +72,24 @@ export default function DiagnosisPage() {
       try {
         const formData = new FormData();
         formData.append("file", selectedReportFile);
+
+        const fileType = selectedReportFile.type;
+
   
-        const response = await fetch("http://127.0.0.1:5500/generate-report", {
-          method: "POST",
-          body: formData,
-        });
+        let response;
+        if (fileType.includes("pdf") || fileType.includes("text")) {
+          response = await fetch("http://127.0.0.1:5500/generate-report", {
+            method: "POST",
+            body: formData,
+          });
+        } else if (fileType.includes("image")) {
+          response = await fetch("http://127.0.0.1:5500/generate-image-report", {
+            method: "POST",
+            body: formData,
+          });
+        } else {
+          throw new Error("Invalid file type. Please upload a PDF or image file.");
+        }
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -82,7 +98,7 @@ export default function DiagnosisPage() {
         const result = await response.json(); // Parse JSON response
         setAiReport({
           type: "report",
-          result: result.summary, // Extract only the summary text
+          result: result.summary || result.response, // Extract only the summary text
         });
       } catch (error) {
         console.error("Error analyzing report:", error);
