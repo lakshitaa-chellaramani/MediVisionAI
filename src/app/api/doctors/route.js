@@ -1,18 +1,41 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Doctor from "@/models/Doctor";
-
-// 📌 **GET ALL - Fetch All Doctors**
-export async function GET() {
+// 📌 **GET - Fetch a Single Doctor by Email**
+export async function GET(req) {
   try {
     await connectToDatabase();
-    const doctors = await Doctor.find({});
-    return NextResponse.json({ success: true, doctors }, { status: 200 });
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get("email");
+
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
+    const doctor = await Doctor.findOne({ email });
+
+    if (!doctor) {
+      return NextResponse.json({ exists: false }, { status: 200 });
+    }
+
+    return NextResponse.json({ exists: true, doctor }, { status: 200 });
   } catch (error) {
-    console.error("Error fetching doctors:", error);
+    console.error("Error fetching doctor details:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+// 📌 **GET ALL - Fetch All Doctors**
+// export async function GET() {
+//   try {
+//     await connectToDatabase();
+//     const doctors = await Doctor.find({});
+//     return NextResponse.json({ success: true, doctors }, { status: 200 });
+//   } catch (error) {
+//     console.error("Error fetching doctors:", error);
+//     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+//   }
+// }
 
 // 📌 **POST - Create a New Doctor Profile**
 export async function POST(req) {

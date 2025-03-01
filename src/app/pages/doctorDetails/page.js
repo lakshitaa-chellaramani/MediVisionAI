@@ -87,7 +87,7 @@ export default function DoctorDetailsForm() {
 
   return (
     <div className="pt-20 min-h-screen flex items-center justify-center bg-neutral-900">
-      <div className="max-w-lg w-full bg-neutral-800 p-8 rounded-lg shadow-lg border border-neutral-700">
+      <div className="max-w-5xl w-full bg-neutral-800 p-8 rounded-lg shadow-lg border border-neutral-700">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
           Complete Your Doctor Profile
         </h2>
@@ -95,75 +95,187 @@ export default function DoctorDetailsForm() {
         {loading ? (
           <p className="text-rose-400 text-lg text-center">Loading...</p>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Full Name */}
-            <div>
-              <label className="text-neutral-300 block mb-1">Full Name</label>
-              <input
-                type="text"
-                className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
-                value={formData.name}
-                disabled
-              />
-              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Personal Information Section */}
+            <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
+              <h3 className="text-rose-500 text-lg mb-4 font-medium">Personal Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Full Name */}
+                <div>
+                  <label className="text-neutral-300 block mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
+                    value={formData.name}
+                    disabled
+                  />
+                  {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                </div>
 
-            {/* Email */}
-            <div>
-              <label className="text-neutral-300 block mb-1">Email</label>
-              <input
-                type="email"
-                className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
-                value={formData.email}
-                disabled
-              />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-            </div>
-
-            {/* Other Input Fields */}
-            {[
-              "specialization",
-              "yearsExperience",
-              "hospitalAffiliation",
-              "clinicLocation",
-              "consultationFee",
-              "degrees",
-              "licenceNumber",
-              "languagesSpoken",
-              "treatmentExpertise",
-              "consultationMode",
-            ].map((key) => (
-              <div key={key}>
-                <label className="text-neutral-300 block mb-1 capitalize">
-                  {key.replace(/([A-Z])/g, " $1")}
-                </label>
-                <input
-                  type={key === "yearsExperience" || key === "consultationFee" ? "number" : "text"}
-                  className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
-                  value={formData[key]}
-                  onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
-                />
-                {errors[key] && <p className="text-red-500 text-sm">{errors[key]}</p>}
+                {/* Email */}
+                <div>
+                  <label className="text-neutral-300 block mb-1">Email</label>
+                  <input
+                    type="email"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
+                    value={formData.email}
+                    disabled
+                  />
+                  {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                </div>
               </div>
-            ))}
+            </div>
 
-            {/* Availability */}
-            <div>
-              <label className="text-neutral-300 block mb-1">Availability</label>
-              <select
-                className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
-                value={formData.availability}
-                onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
-              >
-                <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
-              </select>
+            {/* Professional Credentials Section */}
+            <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
+              <h3 className="text-rose-500 text-lg mb-4 font-medium">Professional Credentials</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-neutral-300 block mb-1">Specialization</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.specialization}
+                    onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
+                    placeholder="e.g., Cardiology, Pediatrics"
+                  />
+                  {errors.specialization && <p className="text-red-500 text-sm">{errors.specialization}</p>}
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Years Experience</label>
+                  <input
+                    type="number"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.yearsExperience}
+                    onChange={(e) => setFormData({ ...formData, yearsExperience: e.target.value })}
+                    placeholder="e.g., 10"
+                  />
+                  {errors.yearsExperience && <p className="text-red-500 text-sm">{errors.yearsExperience}</p>}
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Degrees</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.degrees}
+                    onChange={(e) => setFormData({ ...formData, degrees: e.target.value })}
+                    placeholder="e.g., MD, MBBS, Ph.D."
+                  />
+                  {errors.degrees && <p className="text-red-500 text-sm">{errors.degrees}</p>}
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Licence Number</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.licenceNumber}
+                    onChange={(e) => setFormData({ ...formData, licenceNumber: e.target.value })}
+                    placeholder="e.g., MCI-12345"
+                  />
+                  {errors.licenceNumber && <p className="text-red-500 text-sm">{errors.licenceNumber}</p>}
+                </div>
+              </div>
+            </div>
+
+            {/* Practice Details Section */}
+            <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
+              <h3 className="text-rose-500 text-lg mb-4 font-medium">Practice Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-neutral-300 block mb-1">Hospital Affiliation</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.hospitalAffiliation}
+                    onChange={(e) => setFormData({ ...formData, hospitalAffiliation: e.target.value })}
+                    placeholder="e.g., City General Hospital"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Clinic Location</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.clinicLocation}
+                    onChange={(e) => setFormData({ ...formData, clinicLocation: e.target.value })}
+                    placeholder="e.g., 123 Medical Plaza, Suite 456"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Consultation Fee</label>
+                  <input
+                    type="number"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.consultationFee}
+                    onChange={(e) => setFormData({ ...formData, consultationFee: e.target.value })}
+                    placeholder="e.g., 150"
+                  />
+                  {errors.consultationFee && <p className="text-red-500 text-sm">{errors.consultationFee}</p>}
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Availability</label>
+                  <select
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.availability}
+                    onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
+                  >
+                    <option value="Available">Available</option>
+                    <option value="Unavailable">Unavailable</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Details Section */}
+            <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
+              <h3 className="text-rose-500 text-lg mb-4 font-medium">Additional Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-neutral-300 block mb-1">Languages Spoken</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.languagesSpoken}
+                    onChange={(e) => setFormData({ ...formData, languagesSpoken: e.target.value })}
+                    placeholder="e.g., English, Spanish, Hindi"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-neutral-300 block mb-1">Consultation Mode</label>
+                  <input
+                    type="text"
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                    value={formData.consultationMode}
+                    onChange={(e) => setFormData({ ...formData, consultationMode: e.target.value })}
+                    placeholder="e.g., In-person, Video, Both"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="text-neutral-300 block mb-1">Treatment Expertise</label>
+                  <textarea
+                    className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200 min-h-24"
+                    value={formData.treatmentExpertise}
+                    onChange={(e) => setFormData({ ...formData, treatmentExpertise: e.target.value })}
+                    placeholder="Describe your specific treatment specialties, procedures, or conditions you specialize in treating"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-rose-600 text-white">
-              Save Details
-            </Button>
+            <div className="flex justify-center">
+              <Button type="submit" className="px-8 py-2 bg-rose-600 text-white hover:bg-rose-700 transition">
+                Save Doctor Profile
+              </Button>
+            </div>
           </form>
         )}
       </div>

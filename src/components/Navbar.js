@@ -27,7 +27,7 @@ export default function Navbar() {
           if (userDetails.exists) {
             setUserRole(userDetails.user.role);
           } else {
-            router.push("/pages/basicUserDetails"); // Redirect if first-time login
+            setUserRole(null);
           }
         }
       } catch (error) {
@@ -38,11 +38,13 @@ export default function Navbar() {
     }
 
     fetchUser();
-  }, [router]);
+  }, []);
 
   // Function to handle profile redirection based on user role
   const handleProfileRedirect = () => {
-    if (userRole === "Doctor") {
+    if (!userRole) {
+      router.push("/pages/basicUserDetails"); // Redirect if no role is set
+    } else if (userRole === "Doctor") {
       router.push("/pages/doctor-profile");
     } else {
       router.push("/pages/patient-profile");
@@ -81,17 +83,17 @@ export default function Navbar() {
             </>
           ) : userRole === "Patient" ? (
             <>
-              <a href="/find-doctor" className="text-neutral-300 hover:text-white">Find a Doctor</a>
-              <a href="/ai-diagnosis" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
-              <a href="/ai-reports" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
-              <a href="/health-history" className="text-neutral-300 hover:text-white">Health History</a>
+              <a href="/pages/find-doctor" className="text-neutral-300 hover:text-white">Find a Doctor</a>
+              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
+              <a href="/pages/ai-reports" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
+              <a href="/pages/health-history" className="text-neutral-300 hover:text-white">Health History</a>
             </>
           ) : (
             <>
-              <a href="/appointments" className="text-neutral-300 hover:text-white">My Appointments</a>
-              <a href="/meditron-ai" className="text-neutral-300 hover:text-white">MeditronAI</a>
-              <a href="/update-availability" className="text-neutral-300 hover:text-white">Update Availability</a>
-              <a href="/patients" className="text-neutral-300 hover:text-white">Patients</a>
+              <a href="/pages/appointment" className="text-neutral-300 hover:text-white">My Appointments</a>
+              <a href="/pages/meditron-ai" className="text-neutral-300 hover:text-white">MeditronAI</a>
+              <a href="/pages/update-availability" className="text-neutral-300 hover:text-white">Update Availability</a>
+              <a href="/pages/patients" className="text-neutral-300 hover:text-white">Patients</a>
             </>
           )}
         </nav>
@@ -100,7 +102,10 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {loading ? null : user ? (
             <>
-              <button onClick={handleProfileRedirect} className="text-neutral-300 hover:text-white transition">
+              <button 
+                onClick={handleProfileRedirect} 
+                className="text-neutral-300 hover:text-white transition"
+              >
                 {user.given_name || "Profile"}
               </button>
               <LogoutLink>
