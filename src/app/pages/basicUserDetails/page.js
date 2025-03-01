@@ -77,85 +77,118 @@ export default function UserDetailsForm() {
   if (loading) return <p className="text-white text-center">Loading...</p>;
 
   return (
-    <div className="max-w-lg mx-auto bg-neutral-900 p-6 rounded-lg shadow-lg border border-neutral-800">
-      <h2 className="text-2xl font-bold text-white mb-4">Complete Your Profile</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="text-neutral-300 block mb-1">Full Name</label>
-          <input
-            type="text"
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-200"
-            value={formData.fullName}
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-          />
-          {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
-        </div>
+    <div className="pt-20 min-h-screen flex items-center justify-center bg-neutral-900">
+      <div className="max-w-3xl w-full bg-neutral-800 p-8 rounded-lg shadow-lg border border-neutral-700">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+          Complete Your Profile
+        </h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+          {/* Full Name */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Full Name</label>
+            <input
+              type="text"
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              value={formData.fullName}
+              onChange={(e) =>
+                setFormData({ ...formData, fullName: e.target.value })
+              }
+            />
+            {errors.fullName && (
+              <p className="text-red-500 text-sm">{errors.fullName}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="text-neutral-300 block mb-1">Email</label>
-          <input
-            type="email"
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-400"
-            value={formData.email}
-            disabled
-          />
-        </div>
+          {/* Email (disabled) */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Email</label>
+            <input
+              type="email"
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
+              value={formData.email}
+              disabled
+            />
+          </div>
 
-        <div>
-          <label className="text-neutral-300 block mb-1">Gender</label>
-          <select
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-200"
-            value={formData.gender}
-            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-          >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
-        </div>
+          {/* Gender */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Gender</label>
+            <select
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              value={formData.gender}
+              onChange={(e) =>
+                setFormData({ ...formData, gender: e.target.value })
+              }
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.gender && (
+              <p className="text-red-500 text-sm">{errors.gender}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="text-neutral-300 block mb-1">Date of Birth</label>
-          <input
-            type="date"
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-200"
-            value={formData.dob}
-            onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-          />
-          {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>}
-        </div>
+          {/* Date of Birth */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Date of Birth</label>
+            <input
+              type="date"
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              value={formData.dob}
+              onChange={(e) =>
+                setFormData({ ...formData, dob: e.target.value })
+              }
+            />
+            {errors.dob && (
+              <p className="text-red-500 text-sm">{errors.dob}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="text-neutral-300 block mb-1">Role</label>
-          <select
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-200"
-            value={formData.role}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          >
-            <option value="">Select Role</option>
-            <option value="Patient">Patient</option>
-            <option value="Doctor">Doctor</option>
-          </select>
-          {errors.role && <p className="text-red-500 text-sm">{errors.role}</p>}
-        </div>
+          {/* Role */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Role</label>
+            <select
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              value={formData.role}
+              onChange={(e) =>
+                setFormData({ ...formData, role: e.target.value })
+              }
+            >
+              <option value="">Select Role</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
+            </select>
+            {errors.role && (
+              <p className="text-red-500 text-sm">{errors.role}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="text-neutral-300 block mb-1">Phone Number</label>
-          <input
-            type="tel"
-            className="w-full bg-neutral-800 border border-neutral-700 rounded-md p-2 text-neutral-200"
-            value={formData.phoneNumber}
-            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-          />
-          {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
-        </div>
+          {/* Phone Number */}
+          <div className="col-span-1">
+            <label className="text-neutral-300 block mb-1">Phone Number</label>
+            <input
+              type="tel"
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              value={formData.phoneNumber}
+              onChange={(e) =>
+                setFormData({ ...formData, phoneNumber: e.target.value })
+              }
+            />
+            {errors.phoneNumber && (
+              <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
+            )}
+          </div>
 
-        <Button type="submit" className="w-full bg-rose-600 text-white">
-          Submit
-        </Button>
-      </form>
+          {/* Submit Button */}
+          <div className="col-span-2 flex justify-center mt-4">
+            <Button type="submit" className="w-full bg-rose-600 text-white">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
