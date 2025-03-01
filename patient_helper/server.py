@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify
 import google.generativeai as genai
-import re
+import io
+import base64
+import os
+from PIL import Image
 from flask_cors import CORS
 from dotenv import load_dotenv
+import re
 
 load_dotenv()
-MY_ENV_VAR = os.getenv('GOOGLE_API_KEY')
+GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
+print(GOOGLE_API_KEY) 
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
@@ -151,7 +156,7 @@ chat_session = model.start_chat(history=[
     ]}
 ])
 
-@app.route("/generate", methods=["POST"])
+@app.route("/generate-diagnosis", methods=["POST"])
 def generate_text():
     try:
         data = request.json
@@ -232,6 +237,41 @@ def upload_pdf():
         summary = summarize_medical_report(file_path)
 
         return jsonify({"summary": summary})
+    
+    #model with different system instructions for scan analysis
+    
+
+@app.route("/generate-scan-report", methods=["POST"])
+def generate_scan_report():
+    try:
+        # Check if an image file is uploaded
+        if "image" in request.files:
+            image_file = request.files["image"]
+
+            # Open image using PIL
+            image = Image.open(image_file)
+
+            # Send image directly to Gemini
+            response = model.generate_content([image, "diagnose."])
+
+        # Otherwise, check for JSON text input
+        elif request.is_json:
+            data = request.json
+            prompt = data.get("prompt", "")
+
+            if not prompt:
+                return jsonify({"error": "Prompt is required"}), 400
+
+            # Send text prompt to Gemini model
+            response = chat_session.send_message(prompt)
+
+        else:
+            return jsonify({"error": "Unsupported Media Type. Send JSON or an image file."}), 415
+
+        return jsonify({"response": response.text})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Run the Flask app
 if __name__ == "__main__":
