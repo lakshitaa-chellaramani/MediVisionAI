@@ -56,11 +56,11 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-800/30">
+          <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center shadow-lg shadow-green-800/30">
             <Brain className="w-6 h-6 text-white" />
           </div>
           <span className="text-xl font-bold text-white">
-            <a href="/">MediVision<span className="text-rose-400">AI</span></a>
+            <a href="/">MediVision<span className="text-green-400">AI</span></a>
           </span>
         </div>
 
@@ -68,24 +68,24 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           {!userRole ? (
             <>
-              <a href="#features" className="text-neutral-300 hover:text-white hover:underline decoration-rose-400 decoration-2 underline-offset-8 transition">
+              <a href="#features" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Features
               </a>
-              <a href="#technology" className="text-neutral-300 hover:text-white hover:underline decoration-rose-400 decoration-2 underline-offset-8 transition">
+              <a href="#technology" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Technology
               </a>
-              <a href="#testimonials" className="text-neutral-300 hover:text-white hover:underline decoration-rose-400 decoration-2 underline-offset-8 transition">
+              <a href="#testimonials" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Testimonials
               </a>
-              <a href="#security" className="text-neutral-300 hover:text-white hover:underline decoration-rose-400 decoration-2 underline-offset-8 transition">
+              <a href="#security" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Security
               </a>
             </>
           ) : userRole === "Patient" ? (
             <>
               <a href="/pages/find-doctor" className="text-neutral-300 hover:text-white">Find a Doctor</a>
-              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
-              <a href="/pages/ai-reports" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
+              <a href="/pages/symptoms-checker" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
+              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
               <a href="/pages/health-history" className="text-neutral-300 hover:text-white">Health History</a>
             </>
           ) : (
@@ -109,7 +109,7 @@ export default function Navbar() {
                 {user.given_name || "Profile"}
               </button>
               <LogoutLink>
-                <Button variant="outline" className="border-rose-500 text-rose-400 hover:bg-rose-950">
+                <Button variant="outline" className="border-green-500 text-green-400 hover:bg-green-950">
                   Logout
                 </Button>
               </LogoutLink>
@@ -117,7 +117,7 @@ export default function Navbar() {
           ) : (
             <>
               <LoginLink>
-                <Button variant="outline" className="border-rose-500 text-rose-400 hover:bg-rose-950">
+                <Button variant="outline" className="border-green-500 text-green-400 hover:bg-green-950">
                   Login
                 </Button>
               </LoginLink>

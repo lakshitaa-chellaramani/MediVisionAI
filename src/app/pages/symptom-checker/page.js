@@ -21,7 +21,7 @@ export default function AISymptomChecker() {
     setDebugInfo(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5500/generate", {
+      const response = await fetch("http://127.0.0.1:5500/generate-diagnosis", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: input })
@@ -100,7 +100,7 @@ export default function AISymptomChecker() {
       console.error("Error in API call:", error);
       setMessages((prev) => [
         ...prev,
-        { role: "ai", text: "⚠ Unable to connect to the server. Please try again later." }
+        { role: "ai", text: "⚠️ Unable to connect to the server. Please try again later." }
       ]);
       setDebugInfo({ error: error.message });
     } finally {
@@ -131,14 +131,14 @@ export default function AISymptomChecker() {
         {messages.map((msg, index) => (
           <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             {msg.role === "ai" && (
-              <div className="w-8 h-8 bg-rose-600 flex items-center justify-center rounded-full mr-2">
+              <div className="w-8 h-8 bg-green-600 flex items-center justify-center rounded-full mr-2">
                 <Bot size={18} />
               </div>
             )}
             <div
               className={`p-3 max-w-[75%] rounded-lg text-sm ${
                 msg.role === "user"
-                  ? "bg-rose-600 text-white rounded-br-none"
+                  ? "bg-green-600 text-white rounded-br-none"
                   : "bg-neutral-800 text-neutral-300 rounded-bl-none"
               }`}
               dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}
@@ -147,7 +147,7 @@ export default function AISymptomChecker() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="w-8 h-8 bg-rose-600 flex items-center justify-center rounded-full mr-2">
+            <div className="w-8 h-8 bg-green-600 flex items-center justify-center rounded-full mr-2">
               <Bot size={18} />
             </div>
             <div className="p-3 max-w-[75%] bg-neutral-800 text-neutral-400 text-sm rounded-lg">
@@ -172,13 +172,13 @@ export default function AISymptomChecker() {
       <div className="p-4 bg-neutral-900 border-t border-neutral-800 flex items-center gap-2">
         <input
           type="text"
-          className="flex-1 bg-neutral-800 border border-neutral-700 text-neutral-300 p-2 rounded-md outline-none focus:border-rose-500"
+          className="flex-1 bg-neutral-800 border border-neutral-700 text-neutral-300 p-2 rounded-md outline-none focus:border-green-500"
           placeholder="Describe your symptoms..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
-        <Button onClick={handleSend} className="bg-rose-600 text-white">
+        <Button onClick={handleSend} className="bg-green-600 text-white">
           <Send size={16} />
         </Button>
       </div>

@@ -191,7 +191,7 @@ export default function UserDetailsForm() {
 
           {/* Submit Button */}
           <div className="col-span-2 flex justify-center mt-4">
-            <Button type="submit" className="w-full bg-rose-600 text-white">
+            <Button type="submit" className="w-full bg-green-600 text-white">
               Submit
             </Button>
           </div>

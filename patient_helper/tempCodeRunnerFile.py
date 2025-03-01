@@ -3,10 +3,7 @@ import google.generativeai as genai
 import re
 from flask_cors import CORS
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-MY_ENV_VAR = os.getenv('GOOGLE_API_KEY')
+import fitz 
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
@@ -125,7 +122,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Allow requests from Next.js
 
 # Set up Google Generative AI API Key
-genai.configure(api_key = GOOGLE_API_KEY)
+GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
+genai.configure(api_key=GOOGLE_API_KEY)
 
 # Initialize model with system instructions
 model = genai.GenerativeModel(
@@ -152,7 +150,7 @@ chat_session = model.start_chat(history=[
     ]}
 ])
 
-@app.route("/generate", methods=["POST"])
+@app.route("/generate-diagnosis", methods=["POST"])
 def generate_text():
     try:
         data = request.json
@@ -179,61 +177,4 @@ def generate_text():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-system_instruction1 = (
-    "Only process medical or health-related reports. "
-    "If the document is not related to health or medicine, respond with: 'This document is not a medical report.' "
-    "Focus on summarizing medical test results, diagnoses, prescriptions, or relevant health data."
-)
 
-
-
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure upload directory exists
-
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-
-def extract_text_from_pdf(pdf_path):
-    """Extracts text from a PDF file."""
-    doc = fitz.open(pdf_path)
-    text = "\n".join([page.get_text("text") for page in doc])
-    return text.strip()
-
-def summarize_medical_report(pdf_path):
-    """Generates a summary of the medical report using Gemini API."""
-    text = extract_text_from_pdf(pdf_path)
-    
-    if not text:
-        return "No readable text found in the PDF."
-
-    model = genai.GenerativeModel("gemini-1.5-flash-latest")
-    response = model.generate_content([
-        system_instruction1,
-        f"Summarize this medical report in simple terms:\n\n{text}"
-    ])
-
-    return response.text if response else "Failed to generate a response."
-
-@app.route("/generate-report", methods=["POST"])
-def upload_pdf():
-    """Handles PDF upload and returns a summary."""
-    if "file" not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
-
-    file = request.files["file"]
-
-    if file.filename == "":
-        return jsonify({"error": "No selected file"}), 400
-
-    if file:
-        file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-        file.save(file_path)
-
-        # Process the file
-        summary = summarize_medical_report(file_path)
-
-        return jsonify({"summary": summary})
-
-# Run the Flask app
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5500, debug=True)
