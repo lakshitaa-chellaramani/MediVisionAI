@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText, UserCheck, ImageIcon, FileDigit } from "lucide-react";
@@ -13,7 +13,37 @@ export default function DiagnosisPage() {
   const [aiReport, setAiReport] = useState(null);
   const [activeTab, setActiveTab] = useState("scans");
   const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch("/api/auth/user");
+        const data = await response.json();
+
+        if (data.user) {
+          setUser(data.user);
+
+          // Fetch user role from MongoDB
+          const userDetailsResponse = await fetch(`/api/user?email=${data.user.email}`);
+          const userDetails = await userDetailsResponse.json();
+
+          if (userDetails.exists) {
+            setUserRole(userDetails.user.role);
+          } else {
+            setUserRole(null);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, []);
   
 
   const handleScanFileUpload = (event) => {
@@ -210,10 +240,11 @@ export default function DiagnosisPage() {
               </div>
             </div>
           )}
-          
-          <Button className="bg-green-500 w-full flex items-center gap-2 mt-4 hover:bg-green-600">
-            <UserCheck className="h-5 w-5" /> Consult a Doctor
-          </Button>
+          {(userRole === "Patient") && 
+            <Button className="bg-green-500 w-full flex items-center gap-2 mt-4 hover:bg-green-600">
+              <UserCheck className="h-5 w-5" /> Consult a Doctor
+            </Button>
+          }
         </CardContent>
       </Card>
     </div>
