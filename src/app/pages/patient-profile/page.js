@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import PatientAppointmentsPage from "@/components/PatientAppointments";
 
 export default function PatientDetailsPage() {
   const router = useRouter();
@@ -146,6 +147,7 @@ export default function PatientDetailsPage() {
       ) : (
         <p className="text-neutral-300">Patient details not found.</p>
       )}
+      <PatientAppointmentsPage/>
     </div>
   );
 }
