@@ -153,7 +153,7 @@ export default function FindDoctorsPage() {
   };
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white">
+    <div className="bg-neutral-900 min-h-screen text-white pt-20">
       <div className="max-w-6xl mx-auto p-6">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-rose-400">Find Specialists</h1>

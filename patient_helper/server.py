@@ -5,10 +5,11 @@ import base64
 import os
 from PIL import Image
 from flask_cors import CORS
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import re
+import fitz
 
-load_dotenv()
+# load_dotenv()
 GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
 print(GOOGLE_API_KEY) 
 
