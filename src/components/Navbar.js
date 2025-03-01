@@ -84,8 +84,8 @@ export default function Navbar() {
           ) : userRole === "Patient" ? (
             <>
               <a href="/pages/find-doctor" className="text-neutral-300 hover:text-white">Find a Doctor</a>
-              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
-              <a href="/pages/ai-reports" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
+              <a href="/pages/symptoms-checker" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
+              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
               <a href="/pages/health-history" className="text-neutral-300 hover:text-white">Health History</a>
             </>
           ) : (
