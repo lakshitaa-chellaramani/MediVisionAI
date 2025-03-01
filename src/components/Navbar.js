@@ -52,14 +52,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-150/80 backdrop-blur-md border-b border-neutral-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center shadow-lg shadow-green-800/30">
-            <Brain className="w-6 h-6 text-white" />
+            <Brain className="w-6 h-6 text-green-900" />
           </div>
-          <span className="text-xl font-bold text-white">
+          <span className="text-xl font-bold text-green-900">
             <a href="/">MediVision<span className="text-green-400">AI</span></a>
           </span>
         </div>
@@ -68,32 +68,32 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           {!userRole ? (
             <>
-              <a href="#features" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
+              <a href="#features" className="text-neutral-900 hover:text-green-900 hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Features
               </a>
-              <a href="#technology" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
+              <a href="#technology" className="text-neutral-900 hover:text-green-900 hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Technology
               </a>
-              <a href="#testimonials" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
+              <a href="#testimonials" className="text-neutral-900 hover:text-green-900 hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Testimonials
               </a>
-              <a href="#security" className="text-neutral-300 hover:text-white hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
+              <a href="#security" className="text-neutral-900 hover:text-green-900 hover:underline decoration-green-400 decoration-2 underline-offset-8 transition">
                 Security
               </a>
             </>
           ) : userRole === "Patient" ? (
             <>
-              <a href="/pages/find-doctor" className="text-neutral-300 hover:text-white">Find a Doctor</a>
-              <a href="/pages/symptom-checker" className="text-neutral-300 hover:text-white">AI Diagnosis</a>
-              <a href="/pages/diagnosis" className="text-neutral-300 hover:text-white">AI Report/Scan</a>
-              <a href="/pages/health-history" className="text-neutral-300 hover:text-white">Health History</a>
+              <a href="/pages/find-doctor" className="text-neutral-900 hover:text-green-900">Find a Doctor</a>
+              <a href="/pages/symptom-checker" className="text-neutral-900 hover:text-green-900">AI Diagnosis</a>
+              <a href="/pages/diagnosis" className="text-neutral-900 hover:text-green-900">AI Report/Scan</a>
+              <a href="/pages/health-history" className="text-neutral-900 hover:text-green-900">Health History</a>
             </>
           ) : (
             <>
-              <a href="/pages/appointment" className="text-neutral-300 hover:text-white">My Appointments</a>
-              <a href="/pages/meditron" className="text-neutral-300 hover:text-white">MeditronAI</a>
-              <a href="/pages/doc-dashboard" className="text-neutral-300 hover:text-white">Update Availability</a>
-              <a href="/pages/patients" className="text-neutral-300 hover:text-white">Patients</a>
+              <a href="/pages/appointment" className="text-neutral-900 hover:text-green-900">My Appointments</a>
+              <a href="/pages/meditron" className="text-neutral-900 hover:text-green-900">MeditronAI</a>
+              <a href="/pages/doc-dashboard" className="text-neutral-900 hover:text-green-900">Update Availability</a>
+              <a href="/pages/patients" className="text-neutral-900 hover:text-green-900">Patients</a>
             </>
           )}
         </nav>
@@ -104,7 +104,7 @@ export default function Navbar() {
             <>
               <button 
                 onClick={handleProfileRedirect} 
-                className="text-neutral-300 hover:text-white transition"
+                className="text-neutral-900 hover:text-green-900 transition"
               >
                 {user.given_name || "Profile"}
               </button>

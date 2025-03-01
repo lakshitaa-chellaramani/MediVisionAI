@@ -127,13 +127,13 @@ export default function DoctorAppointmentsPage() {
   const getStatusBadge = (appointment) => {
     if (appointment.approved) {
       return (
-        <div className="bg-green-600 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2">
+        <div className="bg-green-600 text-green-900 px-4 py-2 rounded-md flex items-center justify-center gap-2">
           <CheckCheck className="w-4 h-4" /> Approved
         </div>
       );
     } else if (appointment.completed && !appointment.approved) {
       return (
-        <div className="bg-red-600 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2">
+        <div className="bg-red-600 text-green-900 px-4 py-2 rounded-md flex items-center justify-center gap-2">
           <X className="w-4 h-4" /> Rejected
         </div>
       );
@@ -142,7 +142,7 @@ export default function DoctorAppointmentsPage() {
   };
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white">
+    <div className="bg-neutral-100 min-h-screen text-green-900">
       <div className="max-w-6xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-8 text-rose-400">Patient Appointment Requests</h1>
 
@@ -153,7 +153,7 @@ export default function DoctorAppointmentsPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {appointments.map((appointment) => (
-              <Card key={appointment._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg">
+              <Card key={appointment._id} className="bg-neutral-50 border-none overflow-hidden rounded-xl shadow-lg">
                 <CardHeader className="p-4">
                   <h3 className="text-lg font-semibold text-rose-400">
                     <User className="w-4 h-4 inline-block mr-2 text-rose-300" />
@@ -168,7 +168,7 @@ export default function DoctorAppointmentsPage() {
                   <p className="text-gray-300">Reason: {appointment.reason}</p>
                   
                   {appointment.doctorResponse && (
-                    <div className="mt-3 p-3 bg-neutral-700 rounded-md">
+                    <div className="mt-3 p-3 bg-white rounded-md">
                       <p className="text-sm text-gray-300 font-semibold">Your Response:</p>
                       <p className="text-gray-300">{appointment.doctorResponse}</p>
                     </div>
@@ -179,13 +179,13 @@ export default function DoctorAppointmentsPage() {
                     <>
                       <Button
                         onClick={() => handleApprove(appointment)}
-                        className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2"
+                        className="bg-green-500 hover:bg-green-600 text-green-900 flex items-center gap-2"
                       >
                         <CheckCircle className="w-4 h-4" /> Approve
                       </Button>
                       <Button
                         onClick={() => handleReject(appointment._id)}
-                        className="bg-red-500 hover:bg-red-600 text-white flex items-center gap-2"
+                        className="bg-red-500 hover:bg-red-600 text-green-900 flex items-center gap-2"
                       >
                         <XCircle className="w-4 h-4" /> Reject
                       </Button>
@@ -203,20 +203,20 @@ export default function DoctorAppointmentsPage() {
 
         {/* Response Modal */}
         <Dialog open={isResponseOpen} onOpenChange={setIsResponseOpen}>
-          <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
+          <DialogContent className="bg-neutral-50 border border-white text-neutral-200 rounded-lg p-6">
             <DialogHeader>
-              <DialogTitle className="text-white text-lg">Provide a Response</DialogTitle>
+              <DialogTitle className="text-green-900 text-lg">Provide a Response</DialogTitle>
             </DialogHeader>
             <Input
               type="text"
               placeholder="Enter your response for the patient"
-              className="w-full bg-neutral-700 border border-neutral-600 p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 p-2 text-neutral-200"
               value={doctorResponse}
               onChange={(e) => setDoctorResponse(e.target.value)}
             />
             <Button
               onClick={handleSubmitResponse}
-              className="bg-green-500 hover:bg-green-600 text-white w-full mt-4"
+              className="bg-green-500 hover:bg-green-600 text-green-900 w-full mt-4"
             >
               Submit Response
             </Button>

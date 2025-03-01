@@ -125,7 +125,7 @@ export default function AppointmentsPage() {
             />
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0">
+            <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0">
               Update Availability
             </Button>
           </CardFooter>
@@ -137,13 +137,13 @@ export default function AppointmentsPage() {
               <div className="flex items-center justify-between">
                 <CardTitle className="text-green-400">Appointment Requests</CardTitle>
                 <TabsList className="bg-zinc-800">
-                  <TabsTrigger value="pending" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="pending" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
                     Pending
                   </TabsTrigger>
-                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="confirmed" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
                     Confirmed
                   </TabsTrigger>
-                  <TabsTrigger value="completed" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-zinc-300">
+                  <TabsTrigger value="completed" className="data-[state=active]:bg-green-500 data-[state=active]:text-green-900 text-zinc-300">
                     Completed
                   </TabsTrigger>
                 </TabsList>
@@ -186,7 +186,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleApprove(appointment.id)}
-                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
+                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
                             >
                               <CheckCircle className="mr-1 h-4 w-4" />
                               Approve
@@ -195,7 +195,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleReject(appointment.id)}
-                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
                             >
                               <XCircle className="mr-1 h-4 w-4" />
                               Reject
@@ -254,7 +254,7 @@ export default function AppointmentsPage() {
                               variant="outline" 
                               size="sm" 
                               onClick={() => handleRequestTests(appointment)}
-                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
+                              className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
                             >
                               <FileSearch className="mr-1 h-4 w-4" />
                               Request Tests
@@ -262,7 +262,7 @@ export default function AppointmentsPage() {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+                              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
                             >
                               <RotateCcw className="mr-1 h-4 w-4" />
                               Reschedule
@@ -308,7 +308,7 @@ export default function AppointmentsPage() {
                             variant="outline" 
                             size="sm" 
                             onClick={() => handleAddNotes(appointment)}
-                            className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white"
+                            className="border-green-500 text-green-400 hover:bg-green-500 hover:text-green-900"
                           >
                             <FileText className="mr-1 h-4 w-4" />
                             {appointment.notes ? "View Notes" : "Add Notes"}
@@ -339,7 +339,7 @@ export default function AppointmentsPage() {
             <FileText className="mr-2 h-4 w-4 text-green-400" />
             Add Notes
           </Button>
-          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0">
+          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0">
             <Plus className="mr-2 h-4 w-4" />
             New Appointment
           </Button>
@@ -367,13 +367,13 @@ export default function AppointmentsPage() {
             <Button 
               variant="outline" 
               onClick={() => setIsAddingNotes(false)}
-              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
             >
               Cancel
             </Button>
             <Button 
               onClick={handleSaveNotes}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0"
             >
               Save Notes
             </Button>
@@ -423,13 +423,13 @@ export default function AppointmentsPage() {
             <Button 
               variant="outline" 
               onClick={() => setIsRequestingTests(false)}
-              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-white"
+              className="border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-green-900"
             >
               Cancel
             </Button>
             <Button 
               onClick={handleSubmitTestsRequest}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-green-900 border-0"
             >
               Request Tests
             </Button>

@@ -119,24 +119,24 @@ export default function FindDoctorsPage() {
   });
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white pt-16">
+    <div className="bg-neutral-100 min-h-screen text-green-900 pt-16">
       {/* Header and Filters Section */}
       <div className="max-w-6xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-8 text-green-400">Find Specialists</h1>
         
-        <div className="bg-neutral-800 p-6 rounded-xl mb-8 shadow-lg">
+        <div className="bg-neutral-50 p-6 rounded-xl mb-8 shadow-lg">
           <h2 className="text-lg font-medium mb-4 text-green-300">Filter Options</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="text-sm text-gray-400 mb-1 block">Specialty</label>
               <Select defaultValue="all" onValueChange={(value) => handleFilterChange('specialty', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
+                <SelectTrigger className="bg-white border-green-50 text-green-900 w-full">
                   <div className="flex items-center gap-2">
                     <Stethoscope className="w-4 h-4 text-green-400" />
                     <span>{filters.specialty === 'all' ? 'All Specialties' : filters.specialty}</span>
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                <SelectContent className="bg-neutral-50 border-white text-green-900">
                   <SelectItem value="all">All Specialties</SelectItem>
                   <SelectItem value="Cardiologist">Cardiologist</SelectItem>
                   <SelectItem value="Neurologist">Neurologist</SelectItem>
@@ -149,13 +149,13 @@ export default function FindDoctorsPage() {
             <div>
               <label className="text-sm text-gray-400 mb-1 block">Location</label>
               <Select defaultValue="all" onValueChange={(value) => handleFilterChange('location', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
+                <SelectTrigger className="bg-white border-green-50 text-green-900 w-full">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-green-400" />
                     <span>{filters.location === 'all' ? 'All Locations' : filters.location}</span>
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                <SelectContent className="bg-neutral-50 border-white text-green-900">
                   <SelectItem value="all">All Locations</SelectItem>
                   <SelectItem value="Mumbai">Mumbai</SelectItem>
                   <SelectItem value="Delhi">Delhi</SelectItem>
@@ -168,13 +168,13 @@ export default function FindDoctorsPage() {
             <div>
               <label className="text-sm text-gray-400 mb-1 block">Availability</label>
               <Select defaultValue="all" onValueChange={(value) => handleFilterChange('available', value)}>
-                <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white w-full">
+                <SelectTrigger className="bg-white border-green-50 text-green-900 w-full">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
                     <span>{filters.available === 'all' ? 'All' : filters.available === 'true' ? 'Available' : 'Unavailable'}</span>
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-neutral-700 text-white">
+                <SelectContent className="bg-neutral-50 border-white text-green-900">
                   <SelectItem value="all">All</SelectItem>
                   <SelectItem value="true">Available</SelectItem>
                   <SelectItem value="false">Unavailable</SelectItem>
@@ -183,7 +183,7 @@ export default function FindDoctorsPage() {
             </div>
           </div>
           
-          <Button className="bg-green-500 hover:bg-green-600 text-white mt-4 w-full md:w-auto">
+          <Button className="bg-green-500 hover:bg-green-600 text-green-900 mt-4 w-full md:w-auto">
             <Filter className="w-4 h-4 mr-2" /> Apply Filters
           </Button>
         </div>
@@ -207,9 +207,9 @@ export default function FindDoctorsPage() {
         {!loading && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {filteredDoctors.map((doctor) => (
-              <Card key={doctor.id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg hover:shadow-green-900/20 transition-all duration-300">
+              <Card key={doctor.id} className="bg-neutral-50 border-none overflow-hidden rounded-xl shadow-lg hover:shadow-green-900/20 transition-all duration-300">
                 <div className="flex flex-col md:flex-row">
-                  <div className="md:w-1/3 p-4 flex justify-center items-center bg-neutral-700">
+                  <div className="md:w-1/3 p-4 flex justify-center items-center bg-white">
                     <img 
                       src={doctor.image} 
                       alt={doctor.name} 
@@ -242,14 +242,14 @@ export default function FindDoctorsPage() {
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button 
-                            className={`w-full ${doctor.available ? 'bg-green-500 hover:bg-green-600' : 'bg-neutral-700 cursor-not-allowed'}`} 
+                            className={`w-full ${doctor.available ? 'bg-green-500 hover:bg-green-600' : 'bg-white cursor-not-allowed'}`} 
                             onClick={() => setSelectedDoctor(doctor)} 
                             disabled={!doctor.available}
                           >
                             {doctor.available ? 'Book Appointment' : 'Not Available'}
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="bg-neutral-900 border-neutral-700 text-white">
+                        <DialogContent className="bg-neutral-100 border-white text-green-900">
                           <DialogHeader>
                             <DialogTitle className="text-green-400">Book Appointment with {selectedDoctor?.name}</DialogTitle>
                           </DialogHeader>
@@ -258,7 +258,7 @@ export default function FindDoctorsPage() {
                               <label className="text-sm text-gray-400 mb-1 block">Description</label>
                               <Input
                                 placeholder="Short description of your issue..."
-                                className="bg-neutral-800 text-white border-neutral-700"
+                                className="bg-neutral-50 text-green-900 border-white"
                                 value={appointmentDetails.description}
                                 onChange={(e) => setAppointmentDetails({ ...appointmentDetails, description: e.target.value })}
                               />
@@ -267,10 +267,10 @@ export default function FindDoctorsPage() {
                             <div>
                               <label className="text-sm text-gray-400 mb-1 block">Appointment Type</label>
                               <Select onValueChange={(value) => setAppointmentDetails({ ...appointmentDetails, appointmentType: value })}>
-                                <SelectTrigger className="bg-neutral-800 text-white border-neutral-700">
+                                <SelectTrigger className="bg-neutral-50 text-green-900 border-white">
                                   Appointment Type
                                 </SelectTrigger>
-                                <SelectContent className="bg-neutral-800 text-white border-neutral-700">
+                                <SelectContent className="bg-neutral-50 text-green-900 border-white">
                                   <SelectItem value="Virtual">Virtual Consultation</SelectItem>
                                   <SelectItem value="In-Person">In-Person Visit</SelectItem>
                                 </SelectContent>
@@ -291,7 +291,7 @@ export default function FindDoctorsPage() {
                             )}
                             
                             <Button 
-                              className="bg-green-500 hover:bg-green-600 text-white w-full mt-4"
+                              className="bg-green-500 hover:bg-green-600 text-green-900 w-full mt-4"
                               onClick={bookAppointment}
                               disabled={bookingStatus.loading || !appointmentDetails.description || !appointmentDetails.appointmentType}
                             >
@@ -317,7 +317,7 @@ export default function FindDoctorsPage() {
 
         {/* Empty State */}
         {!loading && filteredDoctors.length === 0 && (
-          <div className="text-center py-12 bg-neutral-800 rounded-xl">
+          <div className="text-center py-12 bg-neutral-50 rounded-xl">
             <UserCheck className="w-12 h-12 text-green-400 mx-auto mb-4 opacity-50" />
             <h3 className="text-xl font-medium text-gray-300 mb-2">No doctors found</h3>
             <p className="text-gray-400 mb-4">Try adjusting your filters to see more results</p>
@@ -334,11 +334,11 @@ export default function FindDoctorsPage() {
         {!loading && filteredDoctors.length > 0 && (
           <div className="flex justify-center">
             <Pagination>
-              <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">Previous</PaginationItem>
-              <PaginationItem className="bg-green-500 text-white">1</PaginationItem>
-              <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">2</PaginationItem>
-              <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">3</PaginationItem>
-              <PaginationItem className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700">Next</PaginationItem>
+              <PaginationItem className="bg-neutral-50 border-white text-green-900 hover:bg-white">Previous</PaginationItem>
+              <PaginationItem className="bg-green-500 text-green-900">1</PaginationItem>
+              <PaginationItem className="bg-neutral-50 border-white text-green-900 hover:bg-white">2</PaginationItem>
+              <PaginationItem className="bg-neutral-50 border-white text-green-900 hover:bg-white">3</PaginationItem>
+              <PaginationItem className="bg-neutral-50 border-white text-green-900 hover:bg-white">Next</PaginationItem>
             </Pagination>
           </div>
         )}
