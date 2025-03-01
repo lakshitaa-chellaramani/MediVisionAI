@@ -177,18 +177,18 @@ export default function DoctorAppointmentsPage() {
                     <User className="w-4 h-4 inline-block mr-2 text-green-300" />
                     {appointment.patientEmail}
                   </h3>
-                  <p className="text-gray-300">
+                  <p className="text-nuetral-900 ">
                     <Calendar className="w-4 h-4 inline-block text-green-300" /> {appointment.date}
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-nuetral-900">
                     <Clock className="w-4 h-4 inline-block text-green-300" /> {appointment.time}
                   </p>
-                  <p className="text-gray-300">Reason: {appointment.reason}</p>
+                  <p className="text-nuetral-900">Reason: {appointment.reason}</p>
                   
                   {appointment.doctorResponse && (
                     <div className="mt-3 p-3 bg-white rounded-md">
-                      <p className="text-sm text-gray-300 font-semibold">Your Response:</p>
-                      <p className="text-gray-300">{appointment.doctorResponse}</p>
+                      <p className="text-sm text-nuetral-900 font-semibold">Your Response:</p>
+                      <p className="text-nuetral-900">{appointment.doctorResponse}</p>
                     </div>
                   )}
                 </CardHeader>
@@ -221,9 +221,9 @@ export default function DoctorAppointmentsPage() {
         {/* Patient Details Modal */}
          {/* Patient Details Modal */}
          <Dialog open={isPatientDetailsOpen} onOpenChange={setIsPatientDetailsOpen}>
-          <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 rounded-lg p-6">
+          <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-900 rounded-lg p-6">
             <DialogHeader>
-              <DialogTitle className="text-white text-lg">Patient Details</DialogTitle>
+              <DialogTitle className="text-white text-nuetral-900">Patient Details</DialogTitle>
             </DialogHeader>
             {patientDetails ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -247,14 +247,14 @@ export default function DoctorAppointmentsPage() {
 
         {/* Response Modal */}
         <Dialog open={isResponseOpen} onOpenChange={setIsResponseOpen}>
-          <DialogContent className="bg-neutral-50 border border-white text-neutral-200 rounded-lg p-6">
+          <DialogContent className="bg-neutral-50 border border-white text-neutral-900 rounded-lg p-6">
             <DialogHeader>
-              <DialogTitle className="text-green-900 text-lg">Provide a Response</DialogTitle>
+              <DialogTitle className="text-green-900 text-nuetral-900">Provide a Response</DialogTitle>
             </DialogHeader>
             <Input
               type="text"
               placeholder="Enter your response for the patient"
-              className="w-full bg-white border border-green-50 p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 p-2 text-neutral-900"
               value={doctorResponse}
               onChange={(e) => setDoctorResponse(e.target.value)}
             />
