@@ -82,21 +82,21 @@ export default function UserDetailsForm() {
     }
   };
 
-  if (loading) return <p className="text-white text-center">Loading...</p>;
+  if (loading) return <p className="text-green-900 text-center">Loading...</p>;
 
   return (
-    <div className="pt-20 min-h-screen flex items-center justify-center bg-neutral-900">
-      <div className="max-w-3xl w-full bg-neutral-800 p-8 rounded-lg shadow-lg border border-neutral-700">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+    <div className="pt-20 min-h-screen flex items-center justify-center bg-neutral-100">
+      <div className="max-w-3xl w-full bg-neutral-50 p-8 rounded-lg shadow-lg border border-white">
+        <h2 className="text-2xl font-bold text-green-900 mb-6 text-center">
           Complete Your Profile
         </h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           {/* Full Name */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Full Name</label>
+            <label className="text-neutral-900 block mb-1">Full Name</label>
             <input
               type="text"
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
               value={formData.fullName}
               onChange={(e) =>
                 setFormData({ ...formData, fullName: e.target.value })
@@ -109,10 +109,10 @@ export default function UserDetailsForm() {
 
           {/* Email (disabled) */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Email</label>
+            <label className="text-neutral-900 block mb-1">Email</label>
             <input
               type="email"
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-400"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-400"
               value={formData.email}
               disabled
             />
@@ -120,9 +120,9 @@ export default function UserDetailsForm() {
 
           {/* Gender */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Gender</label>
+            <label className="text-neutral-900 block mb-1">Gender</label>
             <select
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
               value={formData.gender}
               onChange={(e) =>
                 setFormData({ ...formData, gender: e.target.value })
@@ -140,10 +140,10 @@ export default function UserDetailsForm() {
 
           {/* Date of Birth */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Date of Birth</label>
+            <label className="text-neutral-900 block mb-1">Date of Birth</label>
             <input
               type="date"
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
               value={formData.dob}
               onChange={(e) =>
                 setFormData({ ...formData, dob: e.target.value })
@@ -156,9 +156,9 @@ export default function UserDetailsForm() {
 
           {/* Role */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Role</label>
+            <label className="text-neutral-900 block mb-1">Role</label>
             <select
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
               value={formData.role}
               onChange={(e) =>
                 setFormData({ ...formData, role: e.target.value })
@@ -175,10 +175,10 @@ export default function UserDetailsForm() {
 
           {/* Phone Number */}
           <div className="col-span-1">
-            <label className="text-neutral-300 block mb-1">Phone Number</label>
+            <label className="text-neutral-900 block mb-1">Phone Number</label>
             <input
               type="tel"
-              className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+              className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
               value={formData.phoneNumber}
               onChange={(e) =>
                 setFormData({ ...formData, phoneNumber: e.target.value })
@@ -191,7 +191,7 @@ export default function UserDetailsForm() {
 
           {/* Submit Button */}
           <div className="col-span-2 flex justify-center mt-4">
-            <Button type="submit" className="w-full bg-green-600 text-white">
+            <Button type="submit" className="w-full bg-green-600 text-green-900">
               Submit
             </Button>
           </div>

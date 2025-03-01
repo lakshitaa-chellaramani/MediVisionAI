@@ -36,24 +36,24 @@ export default function ChatBot({ onClose }) {
   };
 
   return (
-    <Card className="fixed bottom-20 right-6 w-full max-w-md p-4 shadow-lg border rounded-xl bg-neutral-900 text-white z-50">
+    <Card className="fixed bottom-20 right-6 w-full max-w-md p-4 shadow-lg border rounded-xl bg-neutral-100 text-green-900 z-50">
       {/* Header with Close Button */}
       <CardHeader className="flex justify-between items-center text-lg font-semibold text-green-500">
         <div className="flex items-center gap-2">
           <MessageSquare className="h-5 w-5 text-green-500" />
           AI Chatbot
         </div>
-        <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-neutral-800">
+        <Button variant="ghost" size="icon" onClick={onClose} className="text-black hover:bg-neutral-50">
           <X className="h-5 w-5" />
         </Button>
       </CardHeader>
 
       {/* Chat Messages */}
-      <CardContent className="h-64 overflow-y-auto flex flex-col gap-2 p-2 bg-neutral-800 rounded-lg">
+      <CardContent className="h-64 overflow-y-auto flex flex-col gap-2 p-2 bg-neutral-50 rounded-lg">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'self-end bg-green-500 text-white' : 'self-start bg-neutral-700 text-white'}`}
+            className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'self-end bg-green-500 text-green-900' : 'self-start bg-white text-green-900'}`}
           >
             {msg.text}
           </div>
@@ -69,9 +69,9 @@ export default function ChatBot({ onClose }) {
               FAQs <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-neutral-800 text-white border-neutral-700">
+          <DropdownMenuContent className="bg-neutral-50 text-green-900 border-white">
             {Object.keys(faqs).map((question, index) => (
-              <DropdownMenuItem key={index} onClick={() => handleSendMessage(question)} className="hover:bg-neutral-700">
+              <DropdownMenuItem key={index} onClick={() => handleSendMessage(question)} className="hover:bg-white">
                 {question}
               </DropdownMenuItem>
             ))}
@@ -85,7 +85,7 @@ export default function ChatBot({ onClose }) {
             placeholder="Ask me something..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-neutral-800 text-white border-neutral-700"
+            className="flex-1 bg-neutral-50 text-green-900 border-white"
           />
           <Button onClick={() => handleSendMessage(input)} className="bg-green-500">
             <Send className="h-5 w-5" />

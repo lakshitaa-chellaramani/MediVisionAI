@@ -90,15 +90,15 @@ export default function MeditronAI() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-900 p-6 pt-24 text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-100 p-6 pt-24 text-green-900">
       <h1 className="text-3xl font-bold text-green-500 mb-4">MeditronAI - Diagnosis Assistant</h1>
       <p className="text-neutral-400 text-center max-w-xl mb-6">Enter the patient's symptoms in medical jargon, and MeditronAI will generate a detailed analysis with a predicted condition.</p>
       
-      <Card className="w-full max-w-3xl bg-neutral-800 border border-neutral-700 shadow-lg p-6 rounded-xl">
+      <Card className="w-full max-w-3xl bg-neutral-50 border border-white shadow-lg p-6 rounded-xl">
         <CardContent>
           <Textarea
             placeholder="Enter symptoms in medical jargon..."
-            className="w-full h-40 p-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full h-40 p-3 bg-neutral-100 border border-white rounded-lg text-green-900 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={symptoms}
             onChange={(e) => setSymptoms(e.target.value)}
           />
@@ -116,15 +116,15 @@ export default function MeditronAI() {
       </Card>
       
       {analysis && (
-        <Card className="w-full max-w-3xl bg-neutral-800 border border-neutral-700 shadow-lg p-6 mt-6 rounded-xl animate-fade-in">
+        <Card className="w-full max-w-3xl bg-neutral-50 border border-white shadow-lg p-6 mt-6 rounded-xl animate-fade-in">
           <CardContent>
             <h2 className="text-2xl font-semibold text-green-500 mb-4">Diagnostic Analysis</h2>
             <div 
-              className="text-neutral-300 mt-2"
+              className="text-neutral-900 mt-2"
               dangerouslySetInnerHTML={{ __html: formatText(analysis.explanation) }}
             />
             <div className="flex gap-4 mt-6">
-              <Button onClick={handleCopy} className="bg-neutral-700 hover:bg-neutral-600 flex items-center gap-2 px-6">
+              <Button onClick={handleCopy} className="bg-white hover:bg-green-50 flex items-center gap-2 px-6">
                 <Copy size={18} /> Copy
               </Button>
               <Button onClick={handleDownload} className="bg-green-600 hover:bg-green-500 flex items-center gap-2 px-6">

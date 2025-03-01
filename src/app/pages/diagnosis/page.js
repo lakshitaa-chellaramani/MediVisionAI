@@ -147,8 +147,8 @@ export default function DiagnosisPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-900 text-white p-6 pt-20">
-      <Card className="w-full max-w-2xl p-6 shadow-lg border rounded-xl bg-neutral-800">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-100 text-green-900 p-6 pt-20">
+      <Card className="w-full max-w-2xl p-6 shadow-lg border rounded-xl bg-neutral-50">
         <CardHeader className="text-xl font-semibold text-green-500 flex items-center gap-2">
           <FileText className="h-6 w-6 text-green-500" /> Diagnosis Analysis
         </CardHeader>
@@ -159,16 +159,16 @@ export default function DiagnosisPage() {
             onValueChange={handleTabChange} 
             className="w-full"
           >
-            <TabsList className="grid grid-cols-2 mb-4 bg-neutral-700">
+            <TabsList className="grid grid-cols-2 mb-4 bg-white">
               <TabsTrigger 
                 value="scans" 
-                className="data-[state=active]:bg-neutral-600 data-[state=active]:text-green-500 data-[state=active]:border-b-2 data-[state=active]:border-green-500"
+                className="data-[state=active]:bg-green-50 data-[state=active]:text-green-500 data-[state=active]:border-b-2 data-[state=active]:border-green-500"
               >
                 X-rays & Scans
               </TabsTrigger>
               <TabsTrigger 
                 value="reports" 
-                className="data-[state=active]:bg-neutral-600 data-[state=active]:text-green-500 data-[state=active]:border-b-2 data-[state=active]:border-green-500"
+                className="data-[state=active]:bg-green-50 data-[state=active]:text-green-500 data-[state=active]:border-b-2 data-[state=active]:border-green-500"
               >
                 Test Reports
               </TabsTrigger>
@@ -178,9 +178,9 @@ export default function DiagnosisPage() {
               {activeTab === "scans" && (
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col items-center gap-4">
-                    <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-green-500 p-6 rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-600">
+                    <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-green-500 p-6 rounded-lg cursor-pointer bg-white hover:bg-green-50">
                       <ImageIcon className="h-8 w-8 text-green-500" />
-                      <span className="mt-2 text-sm text-white">Upload X-ray, MRI, or CT scan</span>
+                      <span className="mt-2 text-sm text-green-900">Upload X-ray, MRI, or CT scan</span>
                       <Input type="file" className="hidden" onChange={handleScanFileUpload} accept="image/*,.dicom" />
                     </label>
                     {selectedScanFile && (
@@ -200,10 +200,10 @@ export default function DiagnosisPage() {
               {activeTab === "reports" && (
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col items-center gap-4">
-                    <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-green-500 p-6 rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-600">
+                    <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-green-500 p-6 rounded-lg cursor-pointer bg-white hover:bg-green-50">
                       <FileDigit className="h-8 w-8 text-green-500" />
-                      <span className="mt-2 text-sm text-white">Upload Blood Tests, Urine Tests, etc.</span>
-                      <Input type="file" className="hidden" onChange={handleReportFileUpload} accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg" />
+                      <span className="mt-2 text-sm text-green-900">Upload Blood Tests, Urine Tests, etc.</span>
+                      <Input type="file" className="hidden" onChange={handleReportFileUpload} accept=".pdf,.doc,.docx,.txt" />
                     </label>
                     {selectedReportFile && (
                       <p className="text-sm text-gray-300">Uploaded: {selectedReportFile.name}</p>
@@ -231,7 +231,7 @@ export default function DiagnosisPage() {
   </div>
 )}
           {aiReport && (
-            <div className="p-4 mt-4 bg-neutral-700 rounded-lg border border-green-500 text-white">
+            <div className="p-4 mt-4 bg-white rounded-lg border border-green-500 text-green-900">
               <p className="text-lg font-semibold text-green-500">
                 AI Diagnosis {aiReport.type === 'scan' ? 'Scan' : 'Report'} Analysis
               </p>

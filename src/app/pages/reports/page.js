@@ -19,27 +19,27 @@ export default function MedicalReports() {
   const filteredReports = filter === 'all' ? reports : reports.filter((r) => r.type === filter);
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white"> 
+    <div className="bg-neutral-100 min-h-screen text-green-900"> 
     <div className="max-w-4xl mx-auto py-10 ">
-      <Card className="bg-neutral-900 text-white p-6 shadow-lg">
+      <Card className="bg-neutral-100 text-green-900 p-6 shadow-lg">
         <CardHeader className="text-xl font-semibold text-green-500">Medical Reports 📑</CardHeader>
         <CardContent>
           <div className="flex justify-between mb-4">
             <Select onValueChange={(value) => setFilter(value)}>
-              <SelectTrigger className="bg-neutral-800 text-white border-neutral-700">
+              <SelectTrigger className="bg-neutral-50 text-green-900 border-white">
                 <SelectValue placeholder="Filter by scan type" />
               </SelectTrigger>
-              <SelectContent className="bg-neutral-800 text-white border-neutral-700">
+              <SelectContent className="bg-neutral-50 text-green-900 border-white">
                 <SelectItem value="all">All</SelectItem>
                 <SelectItem value="X-ray">X-ray</SelectItem>
                 <SelectItem value="MRI">MRI</SelectItem>
                 <SelectItem value="CT Scan">CT Scan</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" className="bg-green-500 text-white"><Filter className="h-4 w-4 mr-2" />Sort by Date</Button>
+            <Button variant="outline" className="bg-green-500 text-green-900"><Filter className="h-4 w-4 mr-2" />Sort by Date</Button>
           </div>
           <Tabs defaultValue="ai">
-            <TabsList className="bg-neutral-800 text-white">
+            <TabsList className="bg-neutral-50 text-green-900">
               <TabsTrigger value="ai">AI Analyzed</TabsTrigger>
               <TabsTrigger value="doctor">Doctor Verified</TabsTrigger>
             </TabsList>
@@ -62,7 +62,7 @@ export default function MedicalReports() {
                         <TableCell>{report.date}</TableCell>
                         <TableCell>{report.status}</TableCell>
                         <TableCell>
-                          <Button size="sm" className="bg-green-500 text-white"><Download className="h-4 w-4" />Download</Button>
+                          <Button size="sm" className="bg-green-500 text-green-900"><Download className="h-4 w-4" />Download</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -88,7 +88,7 @@ export default function MedicalReports() {
                         <TableCell>{report.date}</TableCell>
                         <TableCell>{report.status}</TableCell>
                         <TableCell>
-                          <Button size="sm" className="bg-green-500 text-white"><Download className="h-4 w-4" />Download</Button>
+                          <Button size="sm" className="bg-green-500 text-green-900"><Download className="h-4 w-4" />Download</Button>
                         </TableCell>
                       </TableRow>
                     ))}

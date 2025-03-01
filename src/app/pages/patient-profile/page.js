@@ -74,21 +74,21 @@ export default function PatientDetailsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-neutral-200 flex flex-col items-center pt-24 px-10">
+    <div className="min-h-screen bg-neutral-100 text-neutral-200 flex flex-col items-center pt-24 px-10">
       {loading ? (
         <div className="flex justify-center items-center">
           <Loader2 className="w-10 h-10 text-green-500 animate-spin" />
         </div>
       ) : patientDetails ? (
-        <div className="w-full max-w-4xl bg-neutral-800 p-6 rounded-lg shadow-lg border border-neutral-700">
-          <h2 className="text-3xl font-semibold text-white mb-4">Patient Profile</h2>
+        <div className="w-full max-w-4xl bg-neutral-50 p-6 rounded-lg shadow-lg border border-white">
+          <h2 className="text-3xl font-semibold text-green-900 mb-4">Patient Profile</h2>
 
           {/* Basic Details */}
           <div className="grid grid-cols-2 gap-6 mb-6">
             {["fullName", "email", "bloodGroup", "height", "weight"].map((key) => (
               <div key={key}>
                 <label className="text-neutral-400 block mb-1 capitalize">{key.replace(/([A-Z])/g, " $1")}</label>
-                <p className="bg-neutral-700 p-2 rounded-md">{patientDetails[key] || "Not Provided"}</p>
+                <p className="bg-white p-2 rounded-md">{patientDetails[key] || "Not Provided"}</p>
               </div>
             ))}
           </div>
@@ -99,32 +99,32 @@ export default function PatientDetailsPage() {
             {["allergies", "avgSleep", "diet", "waterIntake", "exercise", "healthGoals"].map((key) => (
               <div key={key}>
                 <label className="text-neutral-400 block mb-1 capitalize">{key.replace(/([A-Z])/g, " $1")}</label>
-                <p className="bg-neutral-700 p-2 rounded-md">{patientDetails[key] || "Not Provided"}</p>
+                <p className="bg-white p-2 rounded-md">{patientDetails[key] || "Not Provided"}</p>
               </div>
             ))}
           </div>
 
           {/* Edit Button */}
           <div className="mt-8 flex justify-center">
-            <Button onClick={handleEditClick} className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg">
+            <Button onClick={handleEditClick} className="bg-green-500 hover:bg-green-600 text-green-900 px-6 py-2 rounded-lg">
               Edit Profile
             </Button>
           </div>
 
           {/* Edit Modal */}
           <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-            <DialogContent className="bg-neutral-800 border border-neutral-700 text-neutral-200 max-w-4xl mx-auto p-6 overflow-y-auto h-[90vh]">
+            <DialogContent className="bg-neutral-50 border border-neutral-700 text-neutral-200 max-w-4xl mx-auto p-6 overflow-y-auto h-[90vh]">
               <DialogHeader>
-                <DialogTitle className="text-white">Edit Profile</DialogTitle>
+                <DialogTitle className="text-green-900">Edit Profile</DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 {["bloodGroup", "height", "weight", "allergies", "avgSleep", "diet", "waterIntake", "exercise", "healthGoals"].map((key) => (
                   <div key={key}>
-                    <label className="text-neutral-300 block mb-1 capitalize">{key.replace(/([A-Z])/g, " $1")}</label>
+                    <label className="text-neutral-900 block mb-1 capitalize">{key.replace(/([A-Z])/g, " $1")}</label>
                     <input
                       type="text"
                       name={key}
-                      className="w-full bg-neutral-700 border border-neutral-600 rounded-md p-2 text-neutral-200"
+                      className="w-full bg-white border border-green-50 rounded-md p-2 text-neutral-200"
                       value={editFormData[key] || ""}
                       onChange={handleInputChange}
                     />
@@ -137,7 +137,7 @@ export default function PatientDetailsPage() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button onClick={handleSaveChanges} className="bg-green-500 hover:bg-green-600 text-white">
+                <Button onClick={handleSaveChanges} className="bg-green-500 hover:bg-green-600 text-green-900">
                   Save Changes
                 </Button>
               </div>
@@ -145,7 +145,7 @@ export default function PatientDetailsPage() {
           </Dialog>
         </div>
       ) : (
-        <p className="text-neutral-300">Patient details not found.</p>
+        <p className="text-neutral-900">Patient details not found.</p>
       )}
       <PatientAppointmentsPage/>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, Loader2, Bot } from "lucide-react";
+import { Send, Loader2, Bot, Pill, Heart, FileQuestion, Info } from "lucide-react";
 
 export default function AISymptomChecker() {
   const [messages, setMessages] = useState([
@@ -114,73 +114,98 @@ export default function AISymptomChecker() {
   };
 
   return (
-    <div className="flex flex-col h-screen pt-16 bg-neutral-950 text-white">
+    <div className="flex flex-col h-screen bg-neutral-50 text-neutral-800 pt-20">
       {/* Header */}
-      <div className="p-4 text-xl font-bold bg-neutral-900 shadow-md border-b border-neutral-800 flex justify-between items-center">
-        <span>AI Symptom Checker</span>
-        {/* <button 
-          onClick={toggleDebug} 
-          className="text-xs bg-neutral-800 hover:bg-neutral-700 px-2 py-1 rounded"
-        >
-          {debugInfo ? "Hide Debug" : "Show Debug"}
-        </button> */}
+      <div className="p-4 text-xl font-bold bg-white shadow-sm border-b border-neutral-200 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-green-100 text-green-600 flex items-center justify-center rounded-full">
+            <Heart size={18} />
+          </div>
+          <span>AI Symptom Checker</span>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-600 hover:bg-green-50">
+            <FileQuestion size={14} className="mr-1" /> Help
+          </Button>
+          <Button variant="outline" size="sm" className="text-xs border-green-200 text-green-600 hover:bg-green-50">
+            <Info size={14} className="mr-1" /> About
+          </Button>
+        </div>
       </div>
+
+      {/* Features or quick links */}
+      {/* <div className="flex justify-center gap-4 py-3 bg-green-50 border-b border-green-100">
+        <Button variant="ghost" size="sm" className="text-green-700 hover:bg-green-100">
+          <Pill size={14} className="mr-1" /> Common Symptoms
+        </Button>
+        <Button variant="ghost" size="sm" className="text-green-700 hover:bg-green-100">
+          <FileQuestion size={14} className="mr-1" /> Health FAQ
+        </Button>
+        <Button variant="ghost" size="sm" className="text-green-700 hover:bg-green-100">
+          <Info size={14} className="mr-1" /> Medical Disclaimer
+        </Button>
+      </div> */}
 
       {/* Chat Box */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, index) => (
-          <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} mb-4`}>
             {msg.role === "ai" && (
-              <div className="w-8 h-8 bg-green-600 flex items-center justify-center rounded-full mr-2">
+              <div className="w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full mr-2 shadow-sm">
                 <Bot size={18} />
               </div>
             )}
             <div
-              className={`p-3 max-w-[75%] rounded-lg text-sm ${
+              className={`p-4 max-w-[75%] rounded-lg shadow-sm ${
                 msg.role === "user"
-                  ? "bg-green-600 text-white rounded-br-none"
-                  : "bg-neutral-800 text-neutral-300 rounded-bl-none"
+                  ? "bg-green-500 text-white rounded-br-none"
+                  : "bg-white border border-neutral-200 text-neutral-800 rounded-bl-none"
               }`}
-              dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}
+              dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-green-700">$1</strong>').replace(/\n/g, '<br/>') }}
             />
+            {msg.role === "user" && (
+              <div className="w-8 h-8 bg-green-600 text-white flex items-center justify-center rounded-full ml-2 shadow-sm">
+                <span className="text-xs font-bold">You</span>
+              </div>
+            )}
           </div>
         ))}
         {loading && (
-          <div className="flex justify-start">
-            <div className="w-8 h-8 bg-green-600 flex items-center justify-center rounded-full mr-2">
+          <div className="flex justify-start mb-4">
+            <div className="w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full mr-2 shadow-sm">
               <Bot size={18} />
             </div>
-            <div className="p-3 max-w-[75%] bg-neutral-800 text-neutral-400 text-sm rounded-lg">
-              <Loader2 className="animate-spin inline-block mr-1" size={14} />
-              Typing...
+            <div className="p-4 max-w-[75%] bg-white border border-neutral-200 text-neutral-500 rounded-lg shadow-sm rounded-bl-none">
+              <div className="flex items-center">
+                <Loader2 className="animate-spin mr-2" size={16} />
+                <span>Analyzing your symptoms...</span>
+              </div>
             </div>
           </div>
         )}
-        
-        {/* Debug Info - only show when there's actual debug info */}
-        {/* {debugInfo && !debugInfo.hidden && (
-          <div className="mt-4 p-3 border border-yellow-600 bg-neutral-900 rounded text-xs text-yellow-500 overflow-x-auto">
-            <div><strong>Status:</strong> {debugInfo.status}</div>
-            <div><strong>Error:</strong> {debugInfo.error || 'None'}</div>
-            <div className="mt-1"><strong>Raw Response:</strong> {debugInfo.rawResponse ? debugInfo.rawResponse.substring(0, 200) + (debugInfo.rawResponse.length > 200 ? '...' : '') : 'Empty'}</div>
-            <div className="mt-1"><strong>Parsed Data:</strong> {debugInfo.parsed ? JSON.stringify(debugInfo.parsed).substring(0, 200) + (JSON.stringify(debugInfo.parsed).length > 200 ? '...' : '') : 'None'}</div>
-          </div>
-        )} */}
       </div>
 
       {/* Input Box */}
-      <div className="p-4 bg-neutral-900 border-t border-neutral-800 flex items-center gap-2">
-        <input
-          type="text"
-          className="flex-1 bg-neutral-800 border border-neutral-700 text-neutral-300 p-2 rounded-md outline-none focus:border-green-500"
-          placeholder="Describe your symptoms..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <Button onClick={handleSend} className="bg-green-600 text-white">
-          <Send size={16} />
-        </Button>
+      <div className="p-4 bg-white border-t border-neutral-200 shadow-sm">
+        <div className="max-w-3xl mx-auto flex items-center gap-3">
+          <input
+            type="text"
+            className="flex-1 bg-neutral-50 border border-neutral-200 text-neutral-800 p-3 rounded-lg outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all"
+            placeholder="Describe your symptoms (e.g., headache, fever, cough)..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          />
+          <Button 
+            onClick={handleSend} 
+            className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg shadow-sm transition-all hover:shadow-md"
+          >
+            <Send size={18} className="mr-2" /> Send
+          </Button>
+        </div>
+        <div className="max-w-3xl mx-auto mt-2 text-xs text-neutral-500 text-center">
+          Note: This AI tool provides general guidance only and is not a substitute for professional medical advice.
+        </div>
       </div>
     </div>
   );
