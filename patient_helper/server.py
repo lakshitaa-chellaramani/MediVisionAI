@@ -7,10 +7,14 @@ from PIL import Image
 from flask_cors import CORS
 from dotenv import load_dotenv
 import re
+import fitz
+import ollama
+
 
 load_dotenv()
 GOOGLE_API_KEY = "AIzaSyBvzErxX6MuUct2pN6rOtXsn54HwTmalCQ"
 print(GOOGLE_API_KEY) 
+
 
 # Expanded list of doctor types with synonyms
 doctor_types = [
@@ -128,6 +132,7 @@ doctor_types = [
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Allow requests from Next.js
 
+
 # Set up Google Generative AI API Key
 genai.configure(api_key = GOOGLE_API_KEY)
 
@@ -145,19 +150,57 @@ model = genai.GenerativeModel(
     ]
 )
 
-# Persistent chat session (Stores context)
-chat_session = model.start_chat(history=[
-    {"role": "user", "parts": [
-        "You are a helpful AI designed to answer medical questions concisely and accurately. "
-        "When given symptoms by the patient, give the most likely diseases with their confidence percentage. "
-        "If the confidence percent of the first diagnosed disease is greater than 70%, do not generate any more diagnoses. "
-        "Also, give the timeline of when the patient should visit a doctor based on diagnosis severity."
-        "ALWAYS Clearly specify which doctor to visit - example urologist, dentist, cardiologist, neurologist etc"
-    ]}
-])
+modelsupport = genai.GenerativeModel(
+    "gemini-1.5-flash-latest",
+    generation_config=genai.GenerationConfig(
+        temperature=0.8,
+        max_output_tokens=400,
+        top_p=0.6
+    ),
+    safety_settings=[
+        {"category": "HATE_SPEECH", "threshold": "BLOCK_ONLY_HIGH"},
+        {"category": "HARASSMENT", "threshold": "BLOCK_ONLY_HIGH"},
+    ]
+)
+
+@app.route("/generate-doctor", methods=["POST"])
+def generate_support_response():
+    chat_session = modelsupport.start_chat(history=[
+        {"role": "user", "parts": [
+            "You are a support AI designed to help medical professionals in diagnosing diseases"
+            "When given details by the patient, give the most likely disease"
+            "you must detect the disease and give reasons to support your findings"
+        ]}
+    ])
+    try:
+        data = request.json
+        prompt = data.get("prompt", "")
+
+        if not prompt:
+            return jsonify({"error": "Prompt is required"}), 400
+
+        print(prompt)
+        
+        # Send user message (context is remembered)
+        response = chat_session.send_message(prompt)
+
+        return jsonify({"response": response.text})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/generate-diagnosis", methods=["POST"])
 def generate_text():
+    chat_session = model.start_chat(history=[
+        {"role": "user", "parts": [
+            "You are a helpful AI designed to answer medical questions concisely and accurately. "
+            "When given symptoms by the patient, give the most likely diseases with their confidence percentage. "
+            "If the confidence percent of the first diagnosed disease is greater than 70%, do not generate any more diagnoses. "
+            "Also, give the timeline of when the patient should visit a doctor based on diagnosis severity."
+            "ALWAYS Clearly specify which doctor to visit - example urologist, dentist, cardiologist, neurologist etc"
+        ]}
+    ])
     try:
         data = request.json
         prompt = data.get("prompt", "")
