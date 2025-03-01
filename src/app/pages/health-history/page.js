@@ -21,7 +21,7 @@ export default function HealthHistory() {
         {tabs.map((t) => (
           <Button
             key={t.id}
-            className={`px-4 py-2 rounded-md ${tab === t.id ? "bg-rose-600" : "bg-neutral-800"}`}
+            className={`px-4 py-2 rounded-md ${tab === t.id ? "bg-green-600" : "bg-neutral-800"}`}
             onClick={() => setTab(t.id)}
           >
             {t.label}
@@ -51,7 +51,7 @@ export default function HealthHistory() {
 function Table({ title, data, downloadable }) {
   return (
     <div className="bg-neutral-800 p-4 rounded-lg shadow-lg">
-      <h2 className="text-xl font-semibold mb-4 text-rose-400">{title}</h2>
+      <h2 className="text-xl font-semibold mb-4 text-green-400">{title}</h2>
       <table className="w-full border-collapse border border-neutral-700 text-white">
         <thead>
           <tr className="bg-neutral-700">
@@ -69,7 +69,7 @@ function Table({ title, data, downloadable }) {
               ))}
               {downloadable && (
                 <td className="border border-neutral-700 p-2">
-                  <Button className="bg-rose-600 text-white px-2 py-1">Download</Button>
+                  <Button className="bg-green-600 text-white px-2 py-1">Download</Button>
                 </td>
               )}
             </tr>

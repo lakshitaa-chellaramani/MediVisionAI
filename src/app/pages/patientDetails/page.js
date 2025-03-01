@@ -83,12 +83,12 @@ export default function PatientDetailsForm() {
         </h2>
 
         {loading ? (
-          <p className="text-rose-400 text-lg text-center">Loading...</p>
+          <p className="text-green-400 text-lg text-center">Loading...</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Personal Information Section */}
             <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
-              <h3 className="text-rose-500 text-lg mb-4 font-medium">Personal Information</h3>
+              <h3 className="text-green-500 text-lg mb-4 font-medium">Personal Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Full Name */}
                 <div>
@@ -117,7 +117,7 @@ export default function PatientDetailsForm() {
 
             {/* Health Metrics Section */}
             <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
-              <h3 className="text-rose-500 text-lg mb-4 font-medium">Health Metrics</h3>
+              <h3 className="text-green-500 text-lg mb-4 font-medium">Health Metrics</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="text-neutral-300 block mb-1">Blood Group</label>
@@ -164,7 +164,7 @@ export default function PatientDetailsForm() {
 
             {/* Lifestyle Section */}
             <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
-              <h3 className="text-rose-500 text-lg mb-4 font-medium">Lifestyle Information</h3>
+              <h3 className="text-green-500 text-lg mb-4 font-medium">Lifestyle Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-neutral-300 block mb-1">Average Sleep</label>
@@ -214,7 +214,7 @@ export default function PatientDetailsForm() {
 
             {/* Additional Information Section */}
             <div className="bg-neutral-750 rounded-md p-4 border border-neutral-700">
-              <h3 className="text-rose-500 text-lg mb-4 font-medium">Additional Information</h3>
+              <h3 className="text-green-500 text-lg mb-4 font-medium">Additional Information</h3>
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="text-neutral-300 block mb-1">Allergies</label>
@@ -241,7 +241,7 @@ export default function PatientDetailsForm() {
 
             {/* Submit Button */}
             <div className="flex justify-center">
-              <Button type="submit" className="px-8 py-2 bg-rose-600 text-white hover:bg-rose-700 transition">
+              <Button type="submit" className="px-8 py-2 bg-green-600 text-white hover:bg-green-700 transition">
                 Save Health Profile
               </Button>
             </div>

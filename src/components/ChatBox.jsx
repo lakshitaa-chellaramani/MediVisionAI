@@ -38,9 +38,9 @@ export default function ChatBot({ onClose }) {
   return (
     <Card className="fixed bottom-20 right-6 w-full max-w-md p-4 shadow-lg border rounded-xl bg-neutral-900 text-white z-50">
       {/* Header with Close Button */}
-      <CardHeader className="flex justify-between items-center text-lg font-semibold text-rose-500">
+      <CardHeader className="flex justify-between items-center text-lg font-semibold text-green-500">
         <div className="flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-rose-500" />
+          <MessageSquare className="h-5 w-5 text-green-500" />
           AI Chatbot
         </div>
         <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-neutral-800">
@@ -53,7 +53,7 @@ export default function ChatBot({ onClose }) {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'self-end bg-rose-500 text-white' : 'self-start bg-neutral-700 text-white'}`}
+            className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'self-end bg-green-500 text-white' : 'self-start bg-neutral-700 text-white'}`}
           >
             {msg.text}
           </div>
@@ -65,7 +65,7 @@ export default function ChatBot({ onClose }) {
         {/* FAQ Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="bg-rose-500 flex items-center gap-2 w-full">
+            <Button className="bg-green-500 flex items-center gap-2 w-full">
               FAQs <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -87,7 +87,7 @@ export default function ChatBot({ onClose }) {
             onChange={(e) => setInput(e.target.value)}
             className="flex-1 bg-neutral-800 text-white border-neutral-700"
           />
-          <Button onClick={() => handleSendMessage(input)} className="bg-rose-500">
+          <Button onClick={() => handleSendMessage(input)} className="bg-green-500">
             <Send className="h-5 w-5" />
           </Button>
         </div>
