@@ -160,8 +160,6 @@ export default function DoctorAppointmentsPage() {
   };
 
   return (
-    <div className="bg-neutral-900 min-h-screen text-white">
-      <h1 className="text-2xl font-bold mb-8 text-green-400">Patient Appointment Requests</h1>
     <div className="bg-neutral-100 min-h-screen text-green-900">
       <div className="max-w-6xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-8 text-green-400">Patient Appointment Requests</h1>
@@ -173,8 +171,7 @@ export default function DoctorAppointmentsPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {appointments.map((appointment) => (
-              <Card key={appointment._id} className="bg-neutral-800 border-none overflow-hidden rounded-xl shadow-lg" onClick={() => handleViewPatientDetails(appointment.patientEmail)}>
-              <Card key={appointment._id} className="bg-neutral-50 border-none overflow-hidden rounded-xl shadow-lg">
+              <Card key={appointment._id} className="bg-neutral-50 border-none overflow-hidden rounded-xl shadow-lg" onClick={() => handleViewPatientDetails(appointment.patientEmail)}>
                 <CardHeader className="p-4">
                   <h3 className="text-lg font-semibold text-green-400">
                     <User className="w-4 h-4 inline-block mr-2 text-green-300" />
