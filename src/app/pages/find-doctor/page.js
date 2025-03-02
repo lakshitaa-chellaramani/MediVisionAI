@@ -16,10 +16,14 @@ export default function FindDoctorsPage() {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [patientEmail, setPatientEmail] = useState("");
+ 
+  
   const [appointmentData, setAppointmentData] = useState({
     time: "",
     date: "",
     reason: "",
+        mode: "offline", // Default to offline
+
   });
   
   // Filter states
@@ -253,7 +257,7 @@ export default function FindDoctorsPage() {
               </div>
             )}
             {filters.specialization && (
-              <div className="bg-neutral-50 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+              <div className="bg-neutral-50  text-green-300 text-sm px-3 py-1 rounded-full flex items-center">
                 <Stethoscope className="w-3 h-3 mr-1" /> {filters.specialization}
                 <button 
                   className="ml-2 text-neutral-400 hover:text-neutral-200"
@@ -264,7 +268,7 @@ export default function FindDoctorsPage() {
               </div>
             )}
             {filters.onlyAvailable && (
-              <div className="bg-neutral-50 text-rose-300 text-sm px-3 py-1 rounded-full flex items-center">
+              <div className="bg-neutral-50 text-green-300 text-sm px-3 py-1 rounded-full flex items-center">
                 Available Only
                 <button 
                   className="ml-2 text-neutral-400 hover:text-neutral-200"
@@ -278,7 +282,7 @@ export default function FindDoctorsPage() {
         )}
 
         {/* Results Count */}
-        <p className="text-neutral-400 mb-4">
+        <p className="text-neutral-900 mb-4">
           Showing {filteredDoctors.length} doctor{filteredDoctors.length !== 1 ? 's' : ''}
         </p>
 
@@ -288,23 +292,23 @@ export default function FindDoctorsPage() {
         ) : filteredDoctors.length === 0 ? (
           <div className="text-center py-12 bg-neutral-50 rounded-xl">
             <p className="text-neutral-900 mb-2">No doctors found matching your filters</p>
-            <Button onClick={resetFilters} className="bg-rose-500 hover:bg-rose-600">
+            <Button onClick={resetFilters} className="bg-green-500 hover:bg-green-600">
               Reset Filters
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 text-neutral-900">
             {filteredDoctors.map((doctor) => (
               <Card key={doctor._id} className="bg-neutral-50 border-none overflow-hidden rounded-xl shadow-lg">
                 <CardHeader className="p-4">
                   <h3 className="text-xl font-semibold text-green-400">{doctor.name || "No Name Provided"}</h3>
-                  <p className="text-gray-300">
-                    <Stethoscope className="w-4 h-4 inline-block text-green-300" /> {doctor.specialization}
+                  <p className="text-gray-900">
+                    <Stethoscope className="w-4 h-4 inline-block  text-green-300" /> {doctor.specialization}
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-gray-900">
                     <MapPin className="w-4 h-4 inline-block text-green-300" /> {doctor.clinicLocation}
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-gray-900">
                     <DollarSign className="w-4 h-4 inline-block text-green-300" /> ${doctor.consultationFee}
                   </p>
                 </CardHeader>
@@ -320,14 +324,14 @@ export default function FindDoctorsPage() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="bg-neutral-50 border border-white text-neutral-200 rounded-lg p-6">
-                      <div className="space-y-4">
+                      <div className="space-y-4  text-neutral-900 block mb-1">
                         {/* Date Input */}
                         <div>
                           <label className="text-neutral-900 block mb-1">Select Date</label>
                           <Input
                             type="date"
                             min={getTodayDate()}
-                            className="w-full bg-white border border-green-50 p-2 text-neutral-200"
+                            className="w-full bg-white border border-green-50 p-2 text-neutral-900"
                             onChange={(e) => setAppointmentData({ ...appointmentData, date: e.target.value })}
                           />
                         </div>
@@ -337,10 +341,23 @@ export default function FindDoctorsPage() {
                           <label className="text-neutral-900 block mb-1">Select Time</label>
                           <Input
                             type="time"
-                            className="w-full bg-white border border-green-50 p-2 text-neutral-200"
+                            className="w-full bg-white border border-green-50 p-2 text-neutral-900"
                             onChange={(e) => setAppointmentData({ ...appointmentData, time: e.target.value })}
                           />
                         </div>
+                        <div>
+  <label className="text-neutral-900 block mb-1">Select Mode</label>
+  <select
+    className="w-full bg-white border border-green-50 p-2 text-neutral-900"
+    onChange={(e) => setAppointmentData({ ...appointmentData, mode: e.target.value })}
+    value={appointmentData.mode}
+  >
+    <option value="online"  className="text-neutral-900 block mb-1">Online</option>
+    <option value="offline"  className="text-neutral-900 block mb-1">Offline</option>
+  </select>
+</div>
+
+
 
                         {/* Reason Input */}
                         <div>
@@ -348,7 +365,7 @@ export default function FindDoctorsPage() {
                           <Input
                             type="text"
                             placeholder="Enter reason"
-                            className="w-full bg-white border border-green-50 p-2 text-neutral-200"
+                            className="w-full  block mb-1 bg-white border border-green-50 p-2 text-neutral-900"
                             onChange={(e) => setAppointmentData({ ...appointmentData, reason: e.target.value })}
                           />
                         </div>
@@ -356,7 +373,7 @@ export default function FindDoctorsPage() {
                         {/* Submit Button */}
                         <Button
                           onClick={handleBookAppointment}
-                          className="bg-rose-500 hover:bg-rose-600 text-green-900 w-full"
+                          className="bg-green-500 hover:bg-green-600 text-green-900 w-full"
                         >
                           Confirm Appointment
                         </Button>

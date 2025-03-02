@@ -33,6 +33,7 @@ export default function PatientAppointmentsPage() {
           const data = await response.json();
           if (data.success) {
             setAppointments(data.appointments);
+            console.log("Appointments:", data.appointments);
           }
         } catch (error) {
           console.error("Error fetching appointments:", error);
@@ -60,7 +61,7 @@ export default function PatientAppointmentsPage() {
                 <CardHeader className="p-4">
                   <h3 className="text-lg font-semibold text-green-400">
                     <User className="w-4 h-4 inline-block mr-2 text-green-300" />
-                    Dr. {appointment.doctorDetails?.fullName || "Unknown Doctor"}
+                    Dr. {appointment.docEmail || "Unknown Doctor"}
                   </h3>
                   <p className="text-gray-300">
                     <Stethoscope className="w-4 h-4 inline-block text-green-300" />{" "}
@@ -74,8 +75,9 @@ export default function PatientAppointmentsPage() {
                     <Calendar className="w-4 h-4 inline-block text-green-300" /> {appointment.date}
                   </p>
                   <p className="text-gray-300">
-                    <Clock className="w-4 h-4 inline-block text-green-300" /> {appointment.time}
+                    <p className="w-4 h-4 inline-block text-green-300" /> {appointment.time}
                   </p>
+                  
                   <p className="text-gray-300">Reason: {appointment.reason}</p>
                 </CardHeader>
 
