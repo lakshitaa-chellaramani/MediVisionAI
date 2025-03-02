@@ -87,6 +87,8 @@ export default function Navbar() {
               <a href="/pages/symptom-checker" className="text-neutral-900 hover:text-green-900">AI Diagnosis</a>
               <a href="/pages/diagnosis" className="text-neutral-900 hover:text-green-900">AI Report/Scan</a>
               <a href="/pages/health-history" className="text-neutral-900 hover:text-green-900">Health History</a>
+              <a href="/pages/health-tracker" className="text-neutral-900 hover:text-green-900">Health Tracker</a>
+
             </>
           ) : (
             <>
